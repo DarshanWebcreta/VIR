@@ -6,10 +6,18 @@ import 'package:vir/core/component/custom_card.dart';
 import 'package:vir/core/component/text_widget.dart';
 import 'package:vir/core/utils/font_size.dart';
 import 'package:vir/core/utils/font_weight.dart';
+import 'package:vir/core/utils/operation_file.dart';
+import 'package:vir/features/category/domain/entities/category_data.dart';
 
 class TitleValueWithDate extends StatelessWidget {
+  final  String id ;
+  final  String date ;
+  final  String value ;
   const TitleValueWithDate({
     super.key,
+    required this.id,
+    required this.date,
+    required this.value,
   });
 
   @override
@@ -20,25 +28,25 @@ class TitleValueWithDate extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           spacing: 15.h,
-          children: const [
+          children:  [
             Row(
               mainAxisAlignment:
               MainAxisAlignment.spaceBetween,
               children: [
                 TextWidget(
-                  text: "172",
+                  text: id,
                   fontSize: FontSizes.mediuam,
                   fontWeight: FontWeights.small,
                 ),
                 TextWidget(
-                  text: "12/10/2024",
+                  text: Operation.dateFormateForUi(date),
                   fontSize: FontSizes.mediuam,
                   fontWeight: FontWeights.small,
                 ),
               ],
             ),
             TextWidget(
-              text: "987979797",
+              text: value,
               fontSize: FontSizes.mediuam,
               fontWeight: FontWeights.large,
             ),

@@ -10,8 +10,8 @@ class LoginModel extends LoginResponse{
 
   factory LoginModel.fromJson(Map<String, dynamic> json) {
     return LoginModel(
-      accessToken: json['access_token'],
-      tokenType: json['token_type'],
+      accessToken: json['access_token']??'',
+      tokenType: json['token_type']??'',
       status: json['status'],
       message: json['message'],
       data: UserData.fromJson(json['data']),

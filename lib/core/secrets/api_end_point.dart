@@ -11,7 +11,11 @@ class ApiPath {
   static const String esic = "esic-policies";
   static const String pf = "provident-funds";
   static const String bonus = "bonus";
+  static const String gst = "gst";
   static const String leaves = "leaves";
+  static const String profile = "profile";
+  static const String changePass = "password";
+  static const String updateProfile = "password";
 
   static const String addCompany = "company_detail";
 }

@@ -94,6 +94,7 @@ class AppStrings{
   static const String tcListTitle = "Terms & Conditions List";
   static const String tcViewTitle = "Terms & Condition View";
   static const String esicList = "ESIC Policies";
+  static const String gstView = "Gst View";
   static const String esicView = "ESIC policy";
 
   static const String bonusList = "Bonus List";

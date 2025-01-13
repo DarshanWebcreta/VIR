@@ -7,7 +7,9 @@ class RoutesNames {
   static const addNewQuote = '/add-new-quote';
 
   static const companyDetails = '/cmp-details';
+  static const gstDetails = '/gst-details';
   static const companyList = '/cmp-list';
+  static const gstList = '/gst-list';
 
   static const providentfundList = '/provident-fund-list';
   static const providentFundView = '/provident-fund-view';

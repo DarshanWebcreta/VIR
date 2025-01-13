@@ -5,18 +5,20 @@ import 'package:vir/features/add_quote/presentation/add_new_quote.dart';
 
 import 'package:vir/features/auth/presentation/forget_password/forget_password.dart';
 import 'package:vir/features/auth/presentation/login/login_screen.dart';
-import 'package:vir/features/bonus/bonus_list.dart';
-import 'package:vir/features/bonus/bonus_view.dart';
+import 'package:vir/features/bonus/presentation/bonus_list.dart';
+import 'package:vir/features/bonus/presentation/bonus_view.dart';
 import 'package:vir/features/category/category_list.dart';
 import 'package:vir/features/category/category_view.dart';
 import 'package:vir/features/company/presentation/company_details.dart';
 import 'package:vir/features/company/presentation/company_list.dart';
-import 'package:vir/features/esic/esic_list.dart';
-import 'package:vir/features/esic/esic_view.dart';
-import 'package:vir/features/leave/leave_list.dart';
-import 'package:vir/features/leave/leave_view.dart';
+import 'package:vir/features/esic/presentation/esic_list.dart';
 
+import 'package:vir/features/esic/presentation/esic_view.dart';
+import 'package:vir/features/gst_tax/presenation/gst_list_screen.dart';
+import 'package:vir/features/gst_tax/presenation/gst_view.dart';
+import 'package:vir/features/leave/presentation/leave_list.dart';
 
+import 'package:vir/features/leave/presentation/leave_view.dart';
 import 'package:vir/features/main_screen/main_screen.dart';
 import 'package:vir/features/provident_fund/presentation/provident_fund_list.dart';
 import 'package:vir/features/provident_fund/presentation/provident_fund_view.dart';
@@ -55,6 +57,12 @@ abstract class AppPages {
     GetPage(
       name: RoutesNames.companyList,
       page: () => const CompanyList(),
+    ),  GetPage(
+      name: RoutesNames.gstList,
+      page: () => const GstList(),
+    ),GetPage(
+      name: RoutesNames.gstDetails,
+      page: () => const GstView(),
     ), GetPage(
       name: RoutesNames.companyDetails,
       page: () =>  CompanyDetails(companyData: Get.arguments,),

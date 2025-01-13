@@ -34,9 +34,7 @@ class _SplashScreenState extends State<SplashScreen> {
         height: 1.sh,
         width: 1.sw,
         child: Container(
-          decoration:   BoxDecoration(
-            gradient: AppColors.gradiant(),
-          ),
+          color: AppColors.white,
           child:  const Center(
             child: AppLogo(),
           ),

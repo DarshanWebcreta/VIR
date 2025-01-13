@@ -41,7 +41,7 @@ class MonthWiseQuote extends StatelessWidget {
                 CustomSizeBox(height: FixSizes.regularHeightWidth, width: 0),
                 FunctionalWidget.dropDownButton(
                   label: 'Start date*',
-                  title: titleSet(
+                  title: Operation.titleSet(
                     date: dashboardStore.startDate,
                     defaultValue: "Month Start Date",
                   ),
@@ -55,7 +55,7 @@ class MonthWiseQuote extends StatelessWidget {
                 ),
                 FunctionalWidget.dropDownButton(
                   label: 'End Date*',
-                  title: titleSet(
+                  title: Operation.titleSet(
                     date: dashboardStore.endDate,
                     defaultValue: "Month End Date",
                   ),
@@ -108,6 +108,7 @@ class MonthWiseQuote extends StatelessWidget {
                   //     "start_date": "2025-01-01",
                   //     "end_date": "2025-01-15"
                   // }
+                  Get.back();
                   dashboardStore.monthWiseQuoteDownload({'company_id':company.selectedCompanyId,'status':statusStore.status,'start_date':dashboardStore.startDate,
                   'end_date':dashboardStore.endDate});
                   // Action on button click
@@ -120,7 +121,6 @@ class MonthWiseQuote extends StatelessWidget {
     );
   }
 
-  String titleSet({required String defaultValue, required String date}) =>
-      date.isEmpty ? defaultValue : Operation.dateFormateForUi(date);
+
 }
 
