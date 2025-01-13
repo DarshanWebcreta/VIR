@@ -10,7 +10,7 @@ import 'package:vir/features/dashboard/data/model/dashboard_count_model.dart';
 
 abstract interface class DashboardRemoteRepo{
   Future<DashboardModel> dashboardApi();
-  Future<CommonModel> monthWiseQuoteDownload(String body);
+  Future<CommonModel> monthWiseQuoteDownload(dynamic body);
 
 }
 
@@ -20,7 +20,7 @@ class DashboardImplRemoteRepo implements DashboardRemoteRepo{
 
   DashboardImplRemoteRepo({required this.apiService});
   @override
-  Future<CommonModel> monthWiseQuoteDownload(String body) {
+  Future<CommonModel> monthWiseQuoteDownload(dynamic body) {
     return apiService.monthWiseQuoteDownload(jsonEncode(body));
   }
   @override

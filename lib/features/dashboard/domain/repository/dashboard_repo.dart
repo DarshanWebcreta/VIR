@@ -6,6 +6,6 @@ import 'package:vir/features/dashboard/data/model/dashboard_count_model.dart';
 
 abstract interface class DashboardRepo{
   Future<Either<Failure,DashboardModel>> dashboardApi();
-  Future<Either<Failure, CommonModel>> monthWiseQuoteDownload(String body);
+  Future<Either<Failure, CommonModel>> monthWiseQuoteDownload(dynamic body);
 
 }

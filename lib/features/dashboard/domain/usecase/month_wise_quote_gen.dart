@@ -16,7 +16,7 @@ class MonthWiseQuoteDownloadUseCase implements UseCase<CommonModel, MonthWiseQuo
 }
 
 class MonthWiseQuoteDownloadParams {
-  final String body;
+  final dynamic body;
 
   MonthWiseQuoteDownloadParams({required this.body});
 }

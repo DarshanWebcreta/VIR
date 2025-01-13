@@ -9,6 +9,12 @@ import 'package:vir/features/auth/domain/usecase/forget_password_usecase.dart';
 import 'package:vir/features/auth/domain/usecase/login_usecase.dart';
 import 'package:vir/features/auth/presentation/forget_password/store/forget_password_store.dart';
 import 'package:vir/features/auth/presentation/login/store/login_store.dart';
+import 'package:vir/features/bonus/data/repositories/bonus_impl_repo.dart';
+import 'package:vir/features/bonus/data/repositories/bonus_remote_repo.dart';
+import 'package:vir/features/bonus/domain/repository/bonus_repo.dart';
+import 'package:vir/features/bonus/domain/usecase/bonus_add_usecase.dart';
+import 'package:vir/features/bonus/domain/usecase/bonus_fetch_usecase.dart';
+import 'package:vir/features/bonus/presentation/store/bonus_store.dart';
 import 'package:vir/features/category/data/repositories/category_impl_repo.dart';
 import 'package:vir/features/category/data/repositories/category_remote_repo.dart';
 import 'package:vir/features/category/domain/repository/category_repo.dart';
@@ -27,7 +33,32 @@ import 'package:vir/features/dashboard/domain/repository/dashboard_repo.dart';
 import 'package:vir/features/dashboard/domain/usecase/dashboard_usecase.dart';
 import 'package:vir/features/dashboard/domain/usecase/month_wise_quote_gen.dart';
 import 'package:vir/features/dashboard/presentation/store/dashboard_store.dart';
+import 'package:vir/features/esic/data/repositories/esic_impl_repo.dart';
+import 'package:vir/features/esic/data/repositories/esic_remote_repo.dart';
+import 'package:vir/features/esic/domain/repository/esic_repo.dart';
+import 'package:vir/features/esic/domain/usecase/add_esic_usecase.dart';
+import 'package:vir/features/esic/domain/usecase/get_esic_usecase.dart';
+import 'package:vir/features/esic/presentation/store/esic_store.dart';
+import 'package:vir/features/gst_tax/data/repositories/gst_impl_repo.dart';
+import 'package:vir/features/gst_tax/data/repositories/gst_remote_repo.dart';
+import 'package:vir/features/gst_tax/domain/repository/gst_repo.dart';
+import 'package:vir/features/gst_tax/domain/usecase/gst_add_usecase.dart';
+import 'package:vir/features/gst_tax/domain/usecase/gst_list_usecase.dart';
+import 'package:vir/features/gst_tax/presenation/store/gst_store.dart';
+import 'package:vir/features/leave/data/repositories/leave_impl_repo.dart';
+import 'package:vir/features/leave/data/repositories/leave_remote_repo.dart';
+import 'package:vir/features/leave/domain/repository/leave_repo.dart';
+import 'package:vir/features/leave/domain/usecase/add_leave_usecase.dart';
+import 'package:vir/features/leave/domain/usecase/fetch_leave_usecase.dart';
+import 'package:vir/features/leave/presentation/store/leave_store.dart';
 import 'package:vir/features/main_screen/store/main_screen_store.dart';
+import 'package:vir/features/profile/data/repositories/profile_impl_repo.dart';
+import 'package:vir/features/profile/data/repositories/profile_remote_repo.dart';
+import 'package:vir/features/profile/domain/repository/profile_repository.dart';
+import 'package:vir/features/profile/domain/usecase/change_password_usecase.dart';
+import 'package:vir/features/profile/domain/usecase/fetch_profile_usecase.dart';
+import 'package:vir/features/profile/domain/usecase/update_profile_usecase.dart';
+import 'package:vir/features/profile/presentation/store/profile_store.dart';
 import 'package:vir/features/provident_fund/data/repositories/pf_impl_repo.dart';
 import 'package:vir/features/provident_fund/data/repositories/pf_remote_repo.dart';
 import 'package:vir/features/provident_fund/domain/repository/pf_repo.dart';
@@ -125,6 +156,38 @@ void setup() {
   getIt.registerLazySingleton<AddPfUsecase>(() => AddPfUsecase(pfRepo: getIt()));
   getIt.registerLazySingleton<PfListUsecase>(() => PfListUsecase(pfRepo: getIt()));
   getIt.registerLazySingleton<PfStore>(() => PfStore());
+
+
+  getIt.registerLazySingleton<EsicRemoteRepo>(() => EsicImplRemoteRepo(apiService: getIt()));
+  getIt.registerLazySingleton<EsicRepo>(() => EsicImplRepo(esicRemoteRepo: getIt()));
+  getIt.registerLazySingleton<EsicListUsecase>(() => EsicListUsecase(esicRepo: getIt()));
+  getIt.registerLazySingleton<AddEsicUsecase>(() => AddEsicUsecase(esicRepo: getIt()));
+  getIt.registerLazySingleton<EsicStore>(() => EsicStore());
+
+  getIt.registerLazySingleton<BonusRemoteRepo>(() => BonusImplRemoteRepo(apiService: getIt()));
+  getIt.registerLazySingleton<BonusRepo>(() => BonusImplRepo(bonusRemoteRepo: getIt()));
+  getIt.registerLazySingleton<BonusListUseCase>(() => BonusListUseCase(bonusRepo: getIt()));
+  getIt.registerLazySingleton<AddBonusUseCase>(() => AddBonusUseCase(bonusRepo: getIt()));
+  getIt.registerLazySingleton<BonusStore>(() => BonusStore());
+
+  getIt.registerLazySingleton<LeavesRemoteRepo>(() => LeavesImplRemoteRepo(apiService: getIt()));
+  getIt.registerLazySingleton<LeavesRepo>(() => LeavesImplRepo(leavesRemoteRepo: getIt()));
+  getIt.registerLazySingleton<LeavesListUseCase>(() => LeavesListUseCase(leavesRepo: getIt()));
+  getIt.registerLazySingleton<AddLeavesUseCase>(() => AddLeavesUseCase(leavesRepo: getIt()));
+  getIt.registerLazySingleton<LeavesStore>(() => LeavesStore());
+
+  getIt.registerLazySingleton<ProfileRemoteRepo>(() => ProfileImplRemoteRepo(apiService: getIt()));
+  getIt.registerLazySingleton<ProfileRepo>(() => ProfileImplRepo(profileRemoteRepo: getIt()));
+  getIt.registerLazySingleton<FetchProfileUseCase>(() => FetchProfileUseCase(profileRepo: getIt()));
+  getIt.registerLazySingleton<UpdateProfileUseCase>(() => UpdateProfileUseCase(profileRepo: getIt()));
+  getIt.registerLazySingleton<ChangePasswordUseCase>(() => ChangePasswordUseCase(profileRepo: getIt()));
+  getIt.registerLazySingleton<ProfileStore>(() => ProfileStore());
+
+  getIt.registerLazySingleton<GstRemoteRepo>(() => GstImplRemoteRepo(apiService: getIt()));
+  getIt.registerLazySingleton<GstRepo>(() => GstImplRepo(gstRemoteRepo: getIt()));
+  getIt.registerLazySingleton<FetchGstListUseCase>(() => FetchGstListUseCase(gstRepo: getIt()));
+  getIt.registerLazySingleton<AddGstUseCase>(() => AddGstUseCase(gstRepo: getIt()));
+  getIt.registerLazySingleton<GstStore>(() => GstStore());
 
 
   getIt.registerLazySingleton<StatusStore>(()=> StatusStore());

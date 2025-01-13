@@ -46,6 +46,9 @@ class _MasterPageState extends State<MasterPage> {
            MasterCard(label: 'Provident Fund',onPress: () {
              Get.toNamed(RoutesNames.providentfundList);
 
+           },), MasterCard(label: 'Gst Tax',onPress: () {
+             Get.toNamed(RoutesNames.gstList);
+
            },),
            MasterCard(label: 'ESIC Policy',onPress: () {
              Get.toNamed(RoutesNames.esicList);

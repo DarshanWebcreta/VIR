@@ -33,6 +33,8 @@ class Operation{
       throw 'Could not launch $uri';
     }
   }
+  static  String titleSet({required String defaultValue, required String date}) =>
+      date.isEmpty ? defaultValue : Operation.dateFormateForUi(date);
   static String dateFormateForUi(String inputDate) {
     // Parse the input date string
     DateTime parsedDate = DateTime.parse(inputDate);
@@ -43,7 +45,7 @@ class Operation{
     return formattedDate;
   }
   static Future<DateTime?> getDate(
-      { String startDate = '',}) {
+      { String startDate = '',bool endDate = true}) {
     return showDatePicker(
         builder: (context, child) {
           return Theme(
@@ -72,6 +74,6 @@ class Operation{
         firstDate:
         startDate.isEmpty?  DateTime(2000)
             : DateFormat('yyyy-MM-dd').parse(startDate),
-        lastDate: DateTime.now());
+        lastDate: endDate?DateTime.now():DateTime(2099));
   }
 }

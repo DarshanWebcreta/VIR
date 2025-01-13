@@ -25,7 +25,7 @@ class DashboardImplRepo implements DashboardRepo{
     }
   }
   @override
-  Future<Either<Failure, CommonModel>> monthWiseQuoteDownload(String body) async {
+  Future<Either<Failure, CommonModel>> monthWiseQuoteDownload(dynamic body) async {
     try {
       final response = await dashboardRemoteRepo.monthWiseQuoteDownload(body);
       return right(response);

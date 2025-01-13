@@ -16,6 +16,7 @@ import 'package:vir/features/auth/data/model/login_model.dart';
 import 'package:vir/features/category/data/model/category_model.dart';
 import 'package:vir/features/company/data/model/company_model.dart';
 import 'package:vir/features/dashboard/data/model/dashboard_count_model.dart';
+import 'package:vir/features/profile/data/model/profile_model.dart';
 
 
 
@@ -124,6 +125,11 @@ abstract class ApiService {
   @POST(ApiPath.pf)
   Future<CommonModel> addPf( @Body() dynamic request);
 
+  @GET(ApiPath.esic)
+  Future<MasterModel> esicList();
+  @POST(ApiPath.esic)
+  Future<CommonModel> addEsic( @Body() dynamic request);
+
   @GET(ApiPath.leaves)
   Future<MasterModel> leavesList();
 
@@ -135,6 +141,22 @@ abstract class ApiService {
 
   @POST(ApiPath.bonus)
   Future<CommonModel> addBonus( @Body() dynamic request);
+
+  @GET(ApiPath.profile)
+  Future<ProfileModel> profile();
+
+  @POST("${ApiPath.profile}/update")
+  Future<CommonModel> updateProfile( @Body() dynamic request);
+
+  @POST(ApiPath.changePass)
+  Future<CommonModel> changePass( @Body() dynamic request);
+
+
+  @GET(ApiPath.gst)
+  Future<MasterModel> gstList();
+
+  @POST(ApiPath.gst)
+  Future<CommonModel> addGst( @Body() dynamic request);
 }
 
 
