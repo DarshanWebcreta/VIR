@@ -48,8 +48,9 @@ abstract class _GstStore with Store {
     data.fold((failure) {
       FunctionalWidget.showSnackBar(title: failure.message, success: false);
     }, (result) {
+      message = result.message ?? '';
       if(result.status==AppStrings.success) {
-        message = result.message ?? '';
+
         FunctionalWidget.showSnackBar(title: message, success: true);
         Get.back();
         fetchGstList();

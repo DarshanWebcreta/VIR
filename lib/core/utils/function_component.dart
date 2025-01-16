@@ -73,9 +73,8 @@ static void logout(){
           msg: title,
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.BOTTOM,
-
           timeInSecForIosWeb: 2,
-          backgroundColor: success?AppColors.themeColor:AppColors.red.withValues(alpha:0.5),
+          backgroundColor: success?AppColors.green:AppColors.red,
           textColor: Colors.white,
           fontSize: 16.0
       );

@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:vir/data/api_service.dart';
-import 'package:vir/features/add_quote/presentation/store/add_new_quote_store.dart';
+
 import 'package:vir/features/auth/data/repositories/auth_impl_repo.dart';
 import 'package:vir/features/auth/data/repositories/auth_remote_repo.dart';
 import 'package:vir/features/auth/domain/repository/auth_repository.dart';
@@ -64,6 +64,12 @@ import 'package:vir/features/provident_fund/data/repositories/pf_remote_repo.dar
 import 'package:vir/features/provident_fund/domain/repository/pf_repo.dart';
 import 'package:vir/features/provident_fund/domain/usecase/pf_usecase.dart';
 import 'package:vir/features/provident_fund/presentation/store/pf_store.dart';
+import 'package:vir/features/quote/data/repositories/quote_impl_repo.dart';
+import 'package:vir/features/quote/data/repositories/quote_remote_repo.dart';
+import 'package:vir/features/quote/domain/repository/quote_repo.dart';
+import 'package:vir/features/quote/domain/usecase/quote_usecase.dart';
+import 'package:vir/features/quote/presentation/store/add_quote/add_new_quote_store.dart';
+import 'package:vir/features/quote/presentation/store/quote_list/quote_store.dart';
 import 'package:vir/features/status/presentation/store/status_store.dart';
 import 'package:vir/features/subject/presentation/store/subject_store.dart';
 import 'package:vir/features/subject/repositories/subject_impl_repo.dart';
@@ -93,7 +99,6 @@ void setup() {
 
 
   //diff instace every time
-  getIt.registerFactory<AddNewQuoteStore>(() => AddNewQuoteStore());
 
 
    getIt.registerLazySingleton<AuthRemoteRepo>(()=>AuthImplRemoteRepo(apiService: getIt()));
@@ -188,6 +193,19 @@ void setup() {
   getIt.registerLazySingleton<FetchGstListUseCase>(() => FetchGstListUseCase(gstRepo: getIt()));
   getIt.registerLazySingleton<AddGstUseCase>(() => AddGstUseCase(gstRepo: getIt()));
   getIt.registerLazySingleton<GstStore>(() => GstStore());
+
+
+  getIt.registerLazySingleton<QuoteRemoteRepo>(() => QuoteImplRemoteRepo(apiService: getIt()));
+  getIt.registerLazySingleton<QuoteRepo>(() => QuoteImplRepo(quoteRemoteRepo: getIt()));
+  getIt.registerLazySingleton<FetchQuoteListUseCase>(() => FetchQuoteListUseCase(quoteRepo: getIt()));
+  getIt.registerLazySingleton<AddQuoteUseCase>(() => AddQuoteUseCase(quoteRepo: getIt()));
+  getIt.registerLazySingleton<UpdateQuoteUseCase>(() => UpdateQuoteUseCase(quoteRepo: getIt()));
+  getIt.registerLazySingleton<SendMailUseCase>(() => SendMailUseCase(quoteRepo: getIt()));
+  getIt.registerLazySingleton<DeleteQuoteUseCase>(() => DeleteQuoteUseCase(quoteRepo: getIt()));
+  getIt.registerLazySingleton<ViewQuoteUseCase>(() => ViewQuoteUseCase(quoteRepo: getIt()));
+  getIt.registerLazySingleton<AddNewQuoteStore>(() => AddNewQuoteStore());
+
+  getIt.registerLazySingleton<QuoteStore>(() => QuoteStore());
 
 
   getIt.registerLazySingleton<StatusStore>(()=> StatusStore());

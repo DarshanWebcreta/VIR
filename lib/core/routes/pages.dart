@@ -1,7 +1,7 @@
 
 import 'package:get/get.dart';
 import 'package:vir/core/routes/route_name.dart';
-import 'package:vir/features/add_quote/presentation/add_new_quote.dart';
+import 'package:vir/features/quote/presentation/add_new_quote.dart';
 
 import 'package:vir/features/auth/presentation/forget_password/forget_password.dart';
 import 'package:vir/features/auth/presentation/login/login_screen.dart';
@@ -51,7 +51,7 @@ abstract class AppPages {
     ),
    GetPage(
       name: RoutesNames.addNewQuote,
-      page: () => const AddNewQuote(),
+      page: () =>  AddNewQuote(quoteId: Get.arguments,),
     ),
 
     GetPage(

@@ -9,6 +9,7 @@ import 'package:vir/injection.dart';
 
 class CompanyLists extends StatefulWidget {
 
+
    const CompanyLists({super.key});
 
   @override
@@ -16,12 +17,15 @@ class CompanyLists extends StatefulWidget {
 }
 
 class _CompanyListsState extends State<CompanyLists> {
+  final companyList = getIt<CompanyStore>();
+
   @override
   void initState() {
+
+
     // TODO: implement initState
     super.initState();
   }
-  final companyList = getIt<CompanyStore>();
 
   @override
   Widget build(BuildContext context) {

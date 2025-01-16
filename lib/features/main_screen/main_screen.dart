@@ -16,7 +16,7 @@ import 'package:vir/features/dashboard/presentation/dashboard_screen.dart';
 import 'package:vir/features/main_screen/store/main_screen_store.dart';
 import 'package:vir/features/master/presentation/master_page.dart';
 import 'package:vir/features/profile/presentation/profile_screen.dart';
-import 'package:vir/features/quote/presentation.dart';
+import 'package:vir/features/quote/presentation/quote_list.dart';
 import 'package:vir/injection.dart';
 
 
