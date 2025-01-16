@@ -22,6 +22,7 @@ import 'package:vir/features/company/presentation/store/company_store.dart';
 import 'package:vir/features/dashboard/presentation/store/dashboard_store.dart';
 
 import 'package:vir/features/dashboard/presentation/widget/month_wise_quote.dart';
+import 'package:vir/features/subject/presentation/store/subject_store.dart';
 import 'package:vir/injection.dart';
 
 class DashboardScreen extends StatefulWidget {
@@ -34,11 +35,13 @@ class DashboardScreen extends StatefulWidget {
 class _DashboardScreenState extends State<DashboardScreen> {
   final dashBoardStore = getIt<DashboardStore>();
   final companyList = getIt<CompanyStore>();
+  final subjectList = getIt<SubjectStore>();
 
   @override
   void initState() {
     dashBoardStore.callApi();
     companyList.callApi();
+    subjectList.getSubjectList();
     // TODO: implement initState
     super.initState();
   }

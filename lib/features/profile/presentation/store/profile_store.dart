@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:mobx/mobx.dart';
+import 'package:vir/core/constant/app_strings.dart';
 import 'package:vir/core/usecase/usecase.dart';
 import 'package:vir/features/profile/domain/usecase/fetch_profile_usecase.dart';
 import 'package:vir/features/profile/domain/usecase/update_profile_usecase.dart';
@@ -46,8 +47,15 @@ abstract class _ProfileStore with Store {
       FunctionalWidget.showSnackBar(title: failure.message, success: false);
     }, (result) {
       message = result.message ?? '';
-      fetchProfile();
-      FunctionalWidget.showSnackBar(title: message, success: true);
+      if(result.status==AppStrings.success){
+        fetchProfile();
+        FunctionalWidget.showSnackBar(title: message, success: true);
+      }
+      else{
+        FunctionalWidget.showSnackBar(title: message, success: false);
+
+      }
+
     });
     Get.context!.loaderOverlay.hide();
 
@@ -63,7 +71,14 @@ abstract class _ProfileStore with Store {
       FunctionalWidget.showSnackBar(title: failure.message, success: false);
     }, (result) {
       message = result.message ?? '';
-      FunctionalWidget.showSnackBar(title: message, success: true);
+      if(result.status==AppStrings.success){
+        FunctionalWidget.showSnackBar(title: message, success: true);
+
+      }
+      else{
+        FunctionalWidget.showSnackBar(title: message, success: false);
+
+      }
     });
     Get.context!.loaderOverlay.hide();
 

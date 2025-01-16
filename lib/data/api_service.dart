@@ -17,6 +17,8 @@ import 'package:vir/features/category/data/model/category_model.dart';
 import 'package:vir/features/company/data/model/company_model.dart';
 import 'package:vir/features/dashboard/data/model/dashboard_count_model.dart';
 import 'package:vir/features/profile/data/model/profile_model.dart';
+import 'package:vir/features/quote/data/model/quote_model.dart';
+import 'package:vir/features/quote/data/model/quote_view_model.dart';
 
 
 
@@ -157,6 +159,24 @@ abstract class ApiService {
 
   @POST(ApiPath.gst)
   Future<CommonModel> addGst( @Body() dynamic request);
+
+  @GET(ApiPath.quote)
+  Future<QuoteModel> quoteList();
+
+  @POST(ApiPath.quote)
+  Future<CommonModel> addQuote( @Body() dynamic request);
+
+  @PUT("${ApiPath.quote}/{id}")
+  Future<CommonModel> updateQuote(@Path("id") int id, @Body() dynamic request);
+
+  @DELETE("${ApiPath.quote}/{id}")
+  Future<CommonModel> deleteQuote(@Path("id") int id);
+
+  @GET("${ApiPath.quote}/${ApiPath.sendMail}/{id}")
+  Future<CommonModel> sendMail(@Path("id") int id);
+
+  @GET("${ApiPath.quote}/{id}/edit")
+  Future<QuoteViewModel> viewQuote(@Path("id") int id);
 }
 
 

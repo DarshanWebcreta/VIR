@@ -16,6 +16,8 @@ class ApiPath {
   static const String profile = "profile";
   static const String changePass = "password";
   static const String updateProfile = "password";
+  static const String quote = "quote";
+  static const String sendMail = "send_email";
 
   static const String addCompany = "company_detail";
 }
