@@ -18,11 +18,13 @@ import 'package:vir/core/utils/fix_sizes.dart';
 import 'package:vir/core/utils/font_size.dart';
 import 'package:vir/core/utils/font_weight.dart';
 import 'package:vir/core/utils/function_component.dart';
+import 'package:vir/features/category/presentation/store/category_store.dart';
 import 'package:vir/features/company/presentation/store/company_store.dart';
 import 'package:vir/features/dashboard/presentation/store/dashboard_store.dart';
 
 import 'package:vir/features/dashboard/presentation/widget/month_wise_quote.dart';
 import 'package:vir/features/subject/presentation/store/subject_store.dart';
+import 'package:vir/features/t&c/presentation/store/terms_store.dart';
 import 'package:vir/injection.dart';
 
 class DashboardScreen extends StatefulWidget {
@@ -36,12 +38,16 @@ class _DashboardScreenState extends State<DashboardScreen> {
   final dashBoardStore = getIt<DashboardStore>();
   final companyList = getIt<CompanyStore>();
   final subjectList = getIt<SubjectStore>();
+  final category = getIt<CategoryStore>();
+  final tc = getIt<TermsStore>();
 
   @override
   void initState() {
     dashBoardStore.callApi();
     companyList.callApi();
     subjectList.getSubjectList();
+    category.getCategoryList();
+    tc.fetchTermList();
     // TODO: implement initState
     super.initState();
   }

@@ -22,7 +22,7 @@ class QuoteData {
       id: json['id'],
       name: json['name']??'',
       subject: json['subject']??'',
-      phoneNo: json['phone_no'],
+      phoneNo: json['phone_no']??'',
       email: json['email'],
       quotePdfUrl: json['quote_pdf_url']??'',
       salaryPdfUrl: json['salary_pdf_url']??'',

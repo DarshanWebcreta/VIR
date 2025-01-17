@@ -2,6 +2,7 @@
 class MasterData {
   final int id;
   final String name;
+  final bool check;
   final int sortOrder;
   final String title;
   final String pfValue;
@@ -26,6 +27,7 @@ class MasterData {
     required this.bonusValue,
     required this.pfValue,
     required this.name,
+    required this.check,
     required this.status,
     required this.leaveValue,
     required this.effectiveDate,
@@ -40,6 +42,7 @@ class MasterData {
       id: json['id'],
       cGstValue: json['cgst_value']??'',
       sGstValue: json['sgst_value']??'',
+      check: false,
       iGstValue: json['igst_value']??'',
       bonusValue: json['bonus_value']??'',
       sortOrder: json['sort_order']??0,

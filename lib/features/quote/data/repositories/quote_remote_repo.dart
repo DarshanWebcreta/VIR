@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:vir/data/api_service.dart';
 import 'package:vir/features/quote/data/model/quote_model.dart';
 import 'package:vir/core/common/common_model.dart';
@@ -24,7 +26,7 @@ class QuoteImplRemoteRepo implements QuoteRemoteRepo {
 
   @override
   Future<CommonModel> addQuote({required dynamic data}) {
-    return apiService.addQuote(data);
+    return apiService.addQuote(jsonEncode(data));
   }
 
   @override

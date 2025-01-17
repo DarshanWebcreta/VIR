@@ -75,9 +75,16 @@ class AppStrings{
     "latest",
     "older",
   ];
+
+  static const List<String> rateHours = [
+    "8",
+    "18",
+  ];
   static const List<int> brandFilter = [
    0,1,2,3,4,5,6,7
   ];
+
+
 
   static const String productTitle = "Products";
   static const String providentFundListTitle = "Provident Fund List";

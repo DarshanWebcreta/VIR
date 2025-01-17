@@ -46,65 +46,68 @@ class _QuatationState extends State<Quatation> {
           },vertiCalPadding: FixSizes.paddingVertical,color: AppColors.themeColor,radius: 6,).paddingSymmetric(vertical: 20.h),
 
           Expanded(
-            child: Observer(builder: (context) {
-              if(quoteStore.isLoading){
-                return ListView.builder(itemCount: 10,shrinkWrap: true,itemBuilder: (context, index) {
-                  return const CustomSizeBox(height: 115, width: 0,child: ShimmerCard(radius: 8,),).paddingOnly(bottom: 8.h);
-                },);
-              }
-              else{
-                return ListView.builder(padding: EdgeInsets.zero,itemCount: quoteStore.quotes.length,itemBuilder: (context, index) {
-                  final quoteData = quoteStore.quotes[index];
-                  return GestureDetector(
-                    onTap: () {
+            child: RefreshIndicator(
+              onRefresh: () => quoteStore.fetchQuotes(),
+              child: Observer(builder: (context) {
+                if(quoteStore.isLoading){
+                  return ListView.builder(itemCount: 10,shrinkWrap: true,itemBuilder: (context, index) {
+                    return const CustomSizeBox(height: 115, width: 0,child: ShimmerCard(radius: 8,),).paddingOnly(bottom: 8.h);
+                  },);
+                }
+                else{
+                  return ListView.builder(padding: EdgeInsets.zero,itemCount: quoteStore.quotes.length,itemBuilder: (context, index) {
+                    final quoteData = quoteStore.quotes[index];
+                    return GestureDetector(
+                      onTap: () {
 
-                      Get.toNamed(RoutesNames.addNewQuote,arguments: quoteData.id);
+                        Get.toNamed(RoutesNames.addNewQuote,arguments: quoteData.id);
 
-                    },
-                    child: CardWidget(radius: 8,horiZontalPadding: 0,verticalPadding: 0,child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                             TextWidget(text: '${quoteData.id} . ${quoteData.name}',fontSize: FontSizes.mediuam,fontWeight: FontWeights.large,),
-                             TextWidget(text: 'Security Service . ${quoteData.phoneNo}',fontSize: FontSizes.small,clr: AppColors.grey,fontWeight: FontWeights.small,).paddingOnly(top: 8.h,bottom: 4.h),
-                             TextWidget(text: quoteData.email??'No Email Added',fontSize: FontSizes.small,clr: AppColors.grey,fontWeight: FontWeights.small,),
-                          ],
-                        ).paddingSymmetric(vertical:12.h,horizontal: 10.w),
-                        const DividerWidget(),
-                        Row(
-                          children: [
-                            Expanded(
-                              child: Row(
-                                children: [
-                                  TextButtonWidget(onPress: () {
-                                    quoteStore.sendMail(quoteData.id);
-                                  },btnTxt: "Send Email",),
-                                  const VerticalDeviderWidget().paddingSymmetric(horizontal: 6.w),
-                                  TextButtonWidget(onPress: () {
-                                    Operation.redirectToBrowser(quoteData.quotePdfUrl);
+                      },
+                      child: CardWidget(radius: 8,horiZontalPadding: 0,verticalPadding: 0,child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                               TextWidget(text: '${quoteData.id} . ${quoteData.name}',fontSize: FontSizes.mediuam,fontWeight: FontWeights.large,),
+                               TextWidget(text: 'Security Service . ${quoteData.phoneNo}',fontSize: FontSizes.small,clr: AppColors.grey,fontWeight: FontWeights.small,).paddingOnly(top: 8.h,bottom: 4.h),
+                               TextWidget(text: quoteData.email??'No Email Added',fontSize: FontSizes.small,clr: AppColors.grey,fontWeight: FontWeights.small,),
+                            ],
+                          ).paddingSymmetric(vertical:12.h,horizontal: 10.w),
+                          const DividerWidget(),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: Row(
+                                  children: [
+                                    TextButtonWidget(onPress: () {
+                                      quoteStore.sendMail(quoteData.id);
+                                    },btnTxt: "Send Email",),
+                                    const VerticalDeviderWidget().paddingSymmetric(horizontal: 6.w),
+                                    TextButtonWidget(onPress: () {
+                                      Operation.redirectToBrowser(quoteData.quotePdfUrl);
 
-                                  },btnTxt: "Quotation PDF",),
-                                  const VerticalDeviderWidget().paddingSymmetric(horizontal: 6.w),
+                                    },btnTxt: "Quotation PDF",),
+                                    const VerticalDeviderWidget().paddingSymmetric(horizontal: 6.w),
 
-                                  TextButtonWidget(onPress: () {
-                                    Operation.redirectToBrowser(quoteData.salaryPdfUrl);
-                                  },btnTxt: "Salary PDF",),
-                                ],
+                                    TextButtonWidget(onPress: () {
+                                      Operation.redirectToBrowser(quoteData.salaryPdfUrl);
+                                    },btnTxt: "Salary PDF",),
+                                  ],
+                                ),
                               ),
-                            ),
-                            TextButtonWidget(onPress: () {
-                              quoteStore.deleteQuote(quoteData.id);
-                              },btnTxt: "Delete",txtClr: AppColors.red,),
-                          ],
-                        ).paddingSymmetric(horizontal: 10.w),
-                      ],
-                    ),).paddingOnly(bottom: 8.h),
-                  );
-                },);
-              }
-            },),
+                              TextButtonWidget(onPress: () {
+                                quoteStore.deleteQuote(quoteData.id);
+                                },btnTxt: "Delete",txtClr: AppColors.red,),
+                            ],
+                          ).paddingSymmetric(horizontal: 10.w),
+                        ],
+                      ),).paddingOnly(bottom: 8.h),
+                    );
+                  },);
+                }
+              },),
+            ),
           )
         ],
       ).paddingSymmetric(horizontal: FixSizes.paddingAllAndHorizontol),

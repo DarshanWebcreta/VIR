@@ -1,3 +1,4 @@
+import 'package:mobx/mobx.dart';
 import 'package:vir/features/quote/domain/entities/pivot.dart';
 
 class QuoteViewCategory {
@@ -6,6 +7,7 @@ class QuoteViewCategory {
   final String status;
   final String createdAt;
   final String updatedAt;
+  @observable
   final CategoryPivot pivot;
 
   QuoteViewCategory({
@@ -26,5 +28,8 @@ class QuoteViewCategory {
       updatedAt: json['updated_at'] as String,
       pivot: CategoryPivot.fromJson(json['pivot']),
     );
+  }
+  Map<String, dynamic> toJson() {
+    return pivot.toJson();
   }
 }
