@@ -1,4 +1,5 @@
-import 'package:flutter/cupertino.dart';
+
+import 'package:mobx/mobx.dart';
 import 'package:vir/features/quote/domain/entities/quote_category.dart';
 
 class QuoteDetailsResponse {
@@ -22,20 +23,21 @@ class QuoteDetails {
    String? subjectName;
 
    int subjectId;
-  final TextEditingController name;
-  final TextEditingController phoneNo;
-  final TextEditingController address;
-  final TextEditingController address1;
-  final TextEditingController city;
-  final TextEditingController district;
-  final TextEditingController pincode;
-  final TextEditingController gstNo;
-  final TextEditingController? email;
+  final String name;
+  final String phoneNo;
+  final String address;
+  final String address1;
+  final String city;
+  final String district;
+  final String pincode;
+  final String gstNo;
+  final String? email;
   final String status;
   final String rateHours;
   final int applyCgst;
   final int applySgst;
   final int applyIgst;
+  @observable
   final List<String> terms;
   final int sendEmail;
   final String createdAt;
@@ -77,15 +79,15 @@ class QuoteDetails {
 
       companyId: json['company_id'] ,
       subjectId: json['subject_id'] ,
-      name: TextEditingController(text: json['name'] ??''),
-      phoneNo:TextEditingController(text: json['phone_no'] ??'') ,
-      address: TextEditingController(text: json['address']??'') ,
-      address1:TextEditingController(text: json['address1']??'')  ,
-      city: TextEditingController(text: json['city']??'') ,
-      district: TextEditingController(text: json['district']??'') ,
-      pincode: TextEditingController(text: json['pincode']??'') ,
-      gstNo:TextEditingController(text:json['gst_no'] ??'' ) ,
-      email: TextEditingController(text:json['email'] ??'' ),
+      name:json['name'] ??'',
+      phoneNo: json['phone_no'] ??'' ,
+      address: json['address']??'',
+      address1: json['address1']??'',
+      city:  json['city']??'' ,
+      district:  json['district']??'',
+      pincode:  json['pincode']??'' ,
+      gstNo:json['gst_no'] ??'' ,
+      email: json['email'] ??'' ,
       status: json['status']??'' ,
       rateHours: json['rate_hours'] ??'',
       applyCgst: json['apply_cgst']??'' ,

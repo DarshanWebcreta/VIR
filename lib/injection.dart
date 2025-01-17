@@ -203,7 +203,7 @@ void setup() {
   getIt.registerLazySingleton<SendMailUseCase>(() => SendMailUseCase(quoteRepo: getIt()));
   getIt.registerLazySingleton<DeleteQuoteUseCase>(() => DeleteQuoteUseCase(quoteRepo: getIt()));
   getIt.registerLazySingleton<ViewQuoteUseCase>(() => ViewQuoteUseCase(quoteRepo: getIt()));
-  getIt.registerLazySingleton<AddNewQuoteStore>(() => AddNewQuoteStore());
+  getIt.registerFactory<AddNewQuoteStore>(() => AddNewQuoteStore());
 
   getIt.registerLazySingleton<QuoteStore>(() => QuoteStore());
 

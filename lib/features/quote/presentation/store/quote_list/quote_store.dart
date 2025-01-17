@@ -50,6 +50,7 @@ abstract class _QuoteStore with Store {
       if(result.status==AppStrings.success){
         FunctionalWidget.showSnackBar(title: message, success: true);
         fetchQuotes(); // Refresh list after addition
+        Get.back();
       }
       else{
         FunctionalWidget.showSnackBar(title: message, success: false);
@@ -76,6 +77,8 @@ abstract class _QuoteStore with Store {
 
         FunctionalWidget.showSnackBar(title: message, success: true);
         fetchQuotes(); // Refresh list after update
+        Get.back();
+
       }
       else{
         FunctionalWidget.showSnackBar(title: message, success: false);
