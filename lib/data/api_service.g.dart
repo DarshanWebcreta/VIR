@@ -525,6 +525,98 @@ class _ApiService implements ApiService {
   }
 
   @override
+  Future<CommonModel> updateCompanyDetails(
+    int id,
+    String companyName,
+    String registrationNo,
+    String providentFundNo,
+    String serviceTaxNo,
+    String gstNo,
+    String profTaxNo,
+    String panNo,
+    String gujaratPoliceNo,
+    String rajasthanPoliceNo,
+    File? file,
+  ) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    queryParameters.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{};
+    final _data = FormData();
+    _data.fields.add(MapEntry(
+      'company_name',
+      companyName,
+    ));
+    _data.fields.add(MapEntry(
+      'registration_no',
+      registrationNo,
+    ));
+    _data.fields.add(MapEntry(
+      'provident_fund_no',
+      providentFundNo,
+    ));
+    _data.fields.add(MapEntry(
+      'service_tax_no',
+      serviceTaxNo,
+    ));
+    _data.fields.add(MapEntry(
+      'gst_no',
+      gstNo,
+    ));
+    _data.fields.add(MapEntry(
+      'prof_tax_no',
+      profTaxNo,
+    ));
+    _data.fields.add(MapEntry(
+      'pan_no',
+      panNo,
+    ));
+    _data.fields.add(MapEntry(
+      'gujarat_police_no',
+      gujaratPoliceNo,
+    ));
+    _data.fields.add(MapEntry(
+      'rajasthan_police_no',
+      rajasthanPoliceNo,
+    ));
+    if(file!=null){
+      _data.files.add(MapEntry(
+        'company_logo',
+        MultipartFile.fromFileSync(
+          file.path,
+          filename: file.path.split(Platform.pathSeparator).last,
+        ),
+      ));
+    }
+    final _options = _setStreamType<CommonModel>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+      contentType: 'multipart/form-data',
+    )
+        .compose(
+          _dio.options,
+          'company_detail/${id}?_method=PUT',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        )));
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late CommonModel _value;
+    try {
+      _value = CommonModel.fromJson(_result.data!);
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    return _value;
+  }
+
+  @override
   Future<CommonModel> addCompany(
     String companyName,
     String pfNo,
@@ -578,13 +670,15 @@ class _ApiService implements ApiService {
       'rajasthan_police_no',
       rjPoliceNo,
     ));
-    _data.files.add(MapEntry(
-      'company_logo',
-      MultipartFile.fromFileSync(
-        file!.path,
-        filename: file.path.split(Platform.pathSeparator).last,
-      ),
-    ));
+    if(file!=null){
+      _data.files.add(MapEntry(
+        'company_logo',
+        MultipartFile.fromFileSync(
+          file.path,
+          filename: file.path.split(Platform.pathSeparator).last,
+        ),
+      ));
+    }
     final _options = _setStreamType<CommonModel>(Options(
       method: 'POST',
       headers: _headers,

@@ -13,6 +13,7 @@ import 'package:vir/features/company/domain/entities/company_data.dart';
 import 'package:vir/features/company/domain/usecase/add_company_usecase.dart';
 import 'package:vir/features/company/domain/usecase/company_usecase.dart';
 import 'package:vir/features/company/domain/usecase/delete_company_usecase.dart';
+import 'package:vir/features/company/domain/usecase/update_company.dart';
 import 'package:vir/injection.dart';
 
 part 'company_store.g.dart'; // Generated file
@@ -60,7 +61,8 @@ abstract class _CompanyStore with Store {
 
 
   @action
-  Future<void> addCompany({
+  Future<void> addUpdateCompany({
+     int? id,
     required String companyName,
     required String pfNo,
     required String regNo,
@@ -70,10 +72,12 @@ abstract class _CompanyStore with Store {
     required String panNo,
     required String gujPoliceNo,
     required String rjPoliceNo,
+    required bool update,
      File? logo,
   }) async {
     Get.context!.loaderOverlay.show();
-    final params = AddCompanyParams(
+    final params = AddUpdateCompanyParams(update:update ,
+      id:id ,
       companyName: companyName,
       pfNo: pfNo,
       regNo: regNo,
@@ -85,7 +89,7 @@ abstract class _CompanyStore with Store {
       rjPoliceNo: rjPoliceNo,
       logo: logo,
     );
-    final data = await getIt<AddCompanyUsecase>().call(params);
+    final data = await getIt<AddUpdateCompanyUsecase>().call(params);
 
     data.fold(
           (l) {
@@ -94,7 +98,7 @@ abstract class _CompanyStore with Store {
           (r) {
         if (r.status == AppStrings.success) {
           FunctionalWidget.showSnackBar(title: r.message!, success: true);
-
+          callApi();
           Get.back();
         } else {
           FunctionalWidget.showSnackBar(title: r.message!, success: false);
@@ -105,6 +109,8 @@ abstract class _CompanyStore with Store {
 
 
   }
+
+
 
   @action
   Future<void> deleteCompany(int id) async {

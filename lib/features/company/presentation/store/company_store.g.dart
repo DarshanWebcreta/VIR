@@ -113,12 +113,13 @@ mixin _$CompanyStore on _CompanyStore, Store {
     return _$callApiAsyncAction.run(() => super.callApi());
   }
 
-  late final _$addCompanyAsyncAction =
-      AsyncAction('_CompanyStore.addCompany', context: context);
+  late final _$addUpdateCompanyAsyncAction =
+      AsyncAction('_CompanyStore.addUpdateCompany', context: context);
 
   @override
-  Future<void> addCompany(
-      {required String companyName,
+  Future<void> addUpdateCompany(
+      {int? id,
+      required String companyName,
       required String pfNo,
       required String regNo,
       required String serTax,
@@ -127,8 +128,10 @@ mixin _$CompanyStore on _CompanyStore, Store {
       required String panNo,
       required String gujPoliceNo,
       required String rjPoliceNo,
+      required bool update,
       File? logo}) {
-    return _$addCompanyAsyncAction.run(() => super.addCompany(
+    return _$addUpdateCompanyAsyncAction.run(() => super.addUpdateCompany(
+        id: id,
         companyName: companyName,
         pfNo: pfNo,
         regNo: regNo,
@@ -138,6 +141,7 @@ mixin _$CompanyStore on _CompanyStore, Store {
         panNo: panNo,
         gujPoliceNo: gujPoliceNo,
         rjPoliceNo: rjPoliceNo,
+        update: update,
         logo: logo));
   }
 

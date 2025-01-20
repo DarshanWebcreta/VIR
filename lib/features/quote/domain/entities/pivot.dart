@@ -39,21 +39,21 @@ class CategoryPivot {
 
   factory CategoryPivot.fromJson(Map<String, dynamic> json) {
     return CategoryPivot(
-      quoteId: json['quote_id'] as int,
-      categoryId: json['category_id'] as int,
+      quoteId: json['quote_id'] ,
+      categoryId: json['category_id']??0 ,
       wages: TextEditingController(text: json['wages'] ?? '0.00'), // Default value if null
       allowance: TextEditingController(text: json['allowance'] ?? '0.00'), // Default value if null
-      applyPercentageForHra: json['apply_percentage_for_hra'] as int,
-      applyPercentageForAgency: json['apply_percentage_for_agency'] as int,
-      hraCharge: TextEditingController(text: "${json['hra_charge'] as int}"),
-      agencyCharge: TextEditingController(text: "${json['agency_charge'] as int}"),
-      hra: json['hra'] as int,
-      proFund: json['pro_fund'] as int,
-      esic: json['esic'] as int,
-      bonus: json['bonus'] as int,
-      leave: json['leave'] as int,
-      createdAt: json['created_at'] as String,
-      updatedAt: json['updated_at'] as String,
+      applyPercentageForHra: json['apply_percentage_for_hra']??0 ,
+      applyPercentageForAgency: json['apply_percentage_for_agency']??0 ,
+      hraCharge: TextEditingController(text: "${json['hra_charge']??'' }"),
+      agencyCharge: TextEditingController(text: "${json['agency_charge']??'' }"),
+      hra: json['hra']??0 ,
+      proFund: json['pro_fund']??0 ,
+      esic: json['esic']??0 ,
+      bonus: json['bonus']??0 ,
+      leave: json['leave']??0 ,
+      createdAt: json['created_at'] ,
+      updatedAt: json['updated_at'] ,
     );
   }
    Map<String, dynamic> toJson() {

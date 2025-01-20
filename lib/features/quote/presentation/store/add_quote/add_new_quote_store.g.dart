@@ -137,6 +137,22 @@ mixin _$AddNewQuoteStore on _AddNewQuoteStore, Store {
     });
   }
 
+  late final _$phoneAtom =
+      Atom(name: '_AddNewQuoteStore.phone', context: context);
+
+  @override
+  TextEditingController get phone {
+    _$phoneAtom.reportRead();
+    return super.phone;
+  }
+
+  @override
+  set phone(TextEditingController value) {
+    _$phoneAtom.reportWrite(value, super.phone, () {
+      super.phone = value;
+    });
+  }
+
   late final _$addressAtom =
       Atom(name: '_AddNewQuoteStore.address', context: context);
 
@@ -185,6 +201,38 @@ mixin _$AddNewQuoteStore on _AddNewQuoteStore, Store {
     });
   }
 
+  late final _$dictrictAtom =
+      Atom(name: '_AddNewQuoteStore.dictrict', context: context);
+
+  @override
+  TextEditingController get dictrict {
+    _$dictrictAtom.reportRead();
+    return super.dictrict;
+  }
+
+  @override
+  set dictrict(TextEditingController value) {
+    _$dictrictAtom.reportWrite(value, super.dictrict, () {
+      super.dictrict = value;
+    });
+  }
+
+  late final _$gstNoAtom =
+      Atom(name: '_AddNewQuoteStore.gstNo', context: context);
+
+  @override
+  TextEditingController get gstNo {
+    _$gstNoAtom.reportRead();
+    return super.gstNo;
+  }
+
+  @override
+  set gstNo(TextEditingController value) {
+    _$gstNoAtom.reportWrite(value, super.gstNo, () {
+      super.gstNo = value;
+    });
+  }
+
   late final _$pincodeAtom =
       Atom(name: '_AddNewQuoteStore.pincode', context: context);
 
@@ -230,6 +278,22 @@ mixin _$AddNewQuoteStore on _AddNewQuoteStore, Store {
   set rateHours(String value) {
     _$rateHoursAtom.reportWrite(value, super.rateHours, () {
       super.rateHours = value;
+    });
+  }
+
+  late final _$statusAtom =
+      Atom(name: '_AddNewQuoteStore.status', context: context);
+
+  @override
+  String get status {
+    _$statusAtom.reportRead();
+    return super.status;
+  }
+
+  @override
+  set status(String value) {
+    _$statusAtom.reportWrite(value, super.status, () {
+      super.status = value;
     });
   }
 
@@ -419,12 +483,16 @@ cGst: ${cGst},
 sGst: ${sGst},
 iGst: ${iGst},
 name: ${name},
+phone: ${phone},
 address: ${address},
 address1: ${address1},
 city: ${city},
+dictrict: ${dictrict},
+gstNo: ${gstNo},
 pincode: ${pincode},
 email: ${email},
 rateHours: ${rateHours},
+status: ${status},
 selectedTerms: ${selectedTerms},
 categories: ${categories}
     ''';

@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:vir/core/component/custom_appbar.dart';
@@ -70,7 +71,12 @@ class _TcViewState extends State<TcView> {
           children:  [
             const CustomSizeBox(height: 8, width: 0),
              TextFieldWidget(controller: title,hintTxt: "Title",labelTxt: "Title*",validator: Validation.isEmpty,),
-             TextFieldWidget(controller: sorting,hintTxt: "Sort",labelTxt: "Sort*",validator: Validation.isEmpty,),
+             TextFieldWidget(controller: sorting,hintTxt: "Sort",labelTxt: "Sort*",validator: Validation.isEmpty,
+               textinput: TextInputType.number,
+               inputFormater: [
+                 FilteringTextInputFormatter.digitsOnly,
+
+               ],),
             EnableDisableStatus(enable: status,callback: () {
               setState(() {
                 status = !status;

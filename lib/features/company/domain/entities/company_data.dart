@@ -29,18 +29,18 @@ class CompanyData {
 
   factory CompanyData.fromJson(Map<String, dynamic> json) {
     return CompanyData(
-      gujPoliceNo: json['gujarat_police_no'] as String,
-      rjPoliceNo: json['rajasthan_police_no'] as String,
-      panNo: json['pan_no'] as String,
-      id: json['id'] as int,
-      companyName: json['company_name'] as String,
-      logo: json['company_logo'] as String,
-      registrationNo: json['registration_no'] as String,
-      providentFundNo: json['provident_fund_no'] as String,
-      serviceTaxNo: json['service_tax_no'] as String,
-      gstNo: json['gst_no'] as String,
-      profTaxNo: json['prof_tax_no'] as String,
-      policeNo: json['police_no'] as String?,
+      gujPoliceNo: json['gujarat_police_no'] ,
+      rjPoliceNo: json['rajasthan_police_no'] ,
+      panNo: json['pan_no'] ,
+      id: json['id'],
+      companyName: json['company_name'] ,
+      logo: json['company_logo'] ,
+      registrationNo: json['registration_no'] ,
+      providentFundNo: json['provident_fund_no'] ,
+      serviceTaxNo: json['service_tax_no'] ,
+      gstNo: json['gst_no'] ,
+      profTaxNo: json['prof_tax_no'] ,
+      policeNo: json['police_no'] ,
     );
   }
 

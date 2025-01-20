@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:vir/core/common/empty_widget.dart';
 import 'package:vir/core/component/add_new_button.dart';
 import 'package:vir/core/component/custom_appbar.dart';
+import 'package:vir/core/component/list_shimmer_effect.dart';
 
 import 'package:vir/core/constant/app_strings.dart';
 import 'package:vir/core/routes/route_name.dart';
@@ -52,22 +54,31 @@ class _LeaveListState extends State<LeaveList> {
 
             },
           ),
-          Observer(builder: (context) {
-            return  Expanded(
-              child: RefreshIndicator(
-                onRefresh: () => leaveStore.fetchLeavesList(),
+          Expanded(
+            child: RefreshIndicator(
+              onRefresh: () => leaveStore.fetchLeavesList(),
 
-                child: ListView.builder(
-                  padding: EdgeInsets.symmetric(vertical: 16.h),
-                  itemCount: leaveStore.leaveList.length,
-                  itemBuilder: (context, index) {
-                    final leaveData = leaveStore.leaveList[index];
-                    return TitleValueWithDate(value: leaveData.leaveValue, id: leaveData.id.toString(), date: leaveData.effectiveDate,);
-                  },
-                ),
-              ),
-            );
-          },)
+              child: Observer(builder: (context) {
+                if(leaveStore.isLoading){
+                  return const ListShimmerEffect();
+
+                }
+                else{
+                  return  leaveStore.leaveList.isEmpty
+                      ? const EmptyWidget(title: "Leave")
+                      :ListView.builder(
+                    padding: EdgeInsets.symmetric(vertical: 16.h),
+                    itemCount: leaveStore.leaveList.length,
+                    itemBuilder: (context, index) {
+                      final leaveData = leaveStore.leaveList[index];
+                      return TitleValueWithDate(value: leaveData.leaveValue, id: leaveData.id.toString(), date: leaveData.effectiveDate,);
+                    },
+                  );
+
+                }
+              },),
+            ),
+          )
         ],
       ).paddingAll(FixSizes.paddingAllAndHorizontol),
     );

@@ -58,5 +58,30 @@ class CompanyImplRepo implements CompanyRepo {
     }
   }
 
+  @override
+  Future<Either<Failure, CommonModel>> updateCompany({required int id, required String companyName, required String pfNo, required String regNo, required String serTax, required String gstNo, required String profTax, required String panNo,
+    required String gujPoliceNo, required String rjPoliceNo, File? logo}) async{
+    try {
+      final response = await companyRemoteRepo.updateCompany(
+        id: id,
+        companyName: companyName,
+        pfNo: pfNo,
+        regNo: regNo,
+        serTax: serTax,
+        gstNo: gstNo,
+        profTax: profTax,
+        panNo: panNo,
+        gujPoliceNo: gujPoliceNo,
+        rjPoliceNo: rjPoliceNo,
+        logo: logo,
+      );
+      return right(response);
+    } on DioException catch (e) {
+      return left(Failure(HandleExeption.handleError(e)));
+    }
+  }
+
+
+
 
 }

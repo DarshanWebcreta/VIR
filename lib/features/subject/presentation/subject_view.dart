@@ -66,7 +66,8 @@ class _SubjectViewState extends State<SubjectView> {
 
         }
       },).paddingAll(FixSizes.paddingAllAndHorizontol.w),
-      appBar: const CustomAppBar(title: AppStrings.subjectViewTitle,backBtn: true,),
+      appBar:  CustomAppBar(title: "${widget.subjectData == null ? "Add " : ""}${AppStrings.subjectViewTitle}",
+        backBtn: true,),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

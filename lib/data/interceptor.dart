@@ -16,11 +16,14 @@ class DefaultInterceptor extends Interceptor {
     options.sendTimeout = const Duration(milliseconds: 20000);
     options.receiveTimeout = const Duration(milliseconds: 20000);
 
+    options.headers['Content-Type'] = 'application/json';
+    options.headers['Accept'] = 'application/json';
     // Add Authorization header if token is available
     String? authToken = StorageManager.readData(StoreKeys.token);
     if (authToken != null && authToken.isNotEmpty) {
       options.headers['Authorization'] = 'Bearer $authToken';
       options.headers['Accept'] = 'application/json';
+
     }
 
     handler.next(options);

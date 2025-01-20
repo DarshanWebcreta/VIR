@@ -6,12 +6,15 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+
 import 'package:vir/core/component/custom_appbar.dart';
 import 'package:vir/core/component/custom_button.dart';
 import 'package:vir/core/component/custom_card.dart';
+import 'package:vir/core/component/empty_sheet_action.dart';
 import 'package:vir/core/component/sizebox_widget.dart';
 import 'package:vir/core/constant/app_strings.dart';
 import 'package:vir/core/key/storage_keys.dart';
+import 'package:vir/core/routes/route_name.dart';
 import 'package:vir/core/storage/app_storage.dart';
 import 'package:vir/core/theme/app_colors.dart';
 import 'package:vir/core/utils/fix_sizes.dart';
@@ -56,6 +59,22 @@ class _AddNewQuoteState extends State<AddNewQuote> {
 
   @override
   void initState() {
+
+    Future(() {
+      if(subject.subjectList.isEmpty){
+        subject.getSubjectList();
+      }
+       if(company.companyList.isEmpty){
+         company.callApi();
+
+       }
+       if(category.categoryList.isEmpty){
+         category.getCategoryList();
+       }
+       if(tc.termsList.isEmpty){
+         tc.fetchTermList();
+       }
+    },);
 
     if(widget.quoteId!=null) {
 
@@ -108,13 +127,16 @@ class _AddNewQuoteState extends State<AddNewQuote> {
 
             FunctionalWidget.dropDownButton(
               label: "Company name*",
-              title:addQuoteStore.companyId==0?"Select any Compnay":company.companyList.firstWhere((element) => element.id==addQuoteStore.companyId,).companyName,
+              title:addQuoteStore.companyId==0||company.companyList.isEmpty?"Select any Compnay":company.companyList.firstWhere((element) => element.id==addQuoteStore.companyId,).companyName,
               displayAddBtn: true,
               addTap: () {
-
+                Get.toNamed(RoutesNames.companyDetails);
               },
               onTap: () {
-                FunctionalWidget.bottomSheet(height: 500, child:    ListView.builder(itemCount: company.companyList.length,itemBuilder: (context, index) {
+                FunctionalWidget.bottomSheet(height: 500, child: company.companyList.isEmpty? EmptySheetAction(callback: () {
+                  Get.back();
+                  Get.toNamed(RoutesNames.companyDetails);
+                },btnTxt: 'company',):   ListView.builder(itemCount: company.companyList.length,itemBuilder: (context, index) {
                   final companyData =  company.companyList[index];
                   return Column(
                     children: [
@@ -134,13 +156,18 @@ class _AddNewQuoteState extends State<AddNewQuote> {
               displayAddBtn: true,
 
               label: "Subject*",
-              title:addQuoteStore.subjectId==0?"Select any subject":subject.subjectList.firstWhere((element) => element.id==addQuoteStore.subjectId,).name,
+              title:addQuoteStore.subjectId==0||subject.subjectList.isEmpty?"Select any subject":subject.subjectList.firstWhere((element) => element.id==addQuoteStore.subjectId,).name,
               addTap: () {
+
+                Get.toNamed(RoutesNames.subjectView);
 
               },
               onTap: () {
                 FunctionalWidget.bottomSheet(height: 500, child:
-                ListView.builder(itemCount: subject.subjectList.length,itemBuilder: (context, index) {
+                subject.subjectList.isEmpty?EmptySheetAction(callback: () {
+                  Get.back();
+                  Get.toNamed(RoutesNames.subjectView);
+                },btnTxt: 'subject',): ListView.builder(itemCount: subject.subjectList.length,itemBuilder: (context, index) {
                   final subjectData =  subject.subjectList[index];
                   return Column(
                     children: [
@@ -169,6 +196,11 @@ class _AddNewQuoteState extends State<AddNewQuote> {
               filled: true,
               controller: addQuoteStore.phone, // Updated controller for address
               validator: Validation.email,
+              textinput: TextInputType.number,
+              inputFormater: [
+                FilteringTextInputFormatter.digitsOnly,
+
+              ],
             ).paddingSymmetric(vertical: spacePadding),
             TextFieldWidget(
               labelTxt: "Address*",
@@ -204,6 +236,11 @@ class _AddNewQuoteState extends State<AddNewQuote> {
               filled: true,
               controller: addQuoteStore.pincode,
               validator: Validation.email,
+              textinput: TextInputType.number,
+              inputFormater: [
+                FilteringTextInputFormatter.digitsOnly,
+
+              ],
             ),
             TextFieldWidget(
               labelTxt: "Gst no*",
@@ -241,7 +278,7 @@ class _AddNewQuoteState extends State<AddNewQuote> {
                   );
                 },), title: "Status");
               },
-            ),
+            ).paddingSymmetric(vertical: spacePadding),
             FunctionalWidget.dropDownButton(
               label: "Rate hours*",
               title:addQuoteStore.rateHours.isEmpty?"Select any hours":"${addQuoteStore.rateHours} hrs",
@@ -264,7 +301,7 @@ class _AddNewQuoteState extends State<AddNewQuote> {
                   );
                 },), title: "Rate Hours");
               },
-            ).paddingSymmetric(vertical: spacePadding),
+            ),
             CustomCard(color: AppColors.white,child:
 
             ListView.builder(padding: EdgeInsets.symmetric(vertical: 10.h),physics: const NeverScrollableScrollPhysics(),shrinkWrap: true,itemCount: addQuoteStore.categories.length,itemBuilder: (context, index) {
@@ -275,8 +312,11 @@ class _AddNewQuoteState extends State<AddNewQuote> {
                 // crossAxisAlignment: CrossAxisAlignment.start,
                 spacing: 8.h,
                 children: [
-                  FunctionalWidget.dropDownButton(label: "Select Category", title:categoryData.pivot.categoryId!=0?category.categoryList.firstWhere((element) => element.id==categoryData.pivot.categoryId,).name: "Category", onTap: () {
-                    FunctionalWidget.bottomSheet(height: 500.h, child: ListView.builder(itemCount: category.categoryList.length,itemBuilder: (context, indeX) {
+                  FunctionalWidget.dropDownButton(label: "Select Category", title:categoryData.pivot.categoryId==0||addQuoteStore.categories.isEmpty?"Category":category.categoryList.firstWhere((element) => element.id==categoryData.pivot.categoryId,).name, onTap: () {
+                    FunctionalWidget.bottomSheet(height: 500.h, child: category.categoryList.isEmpty?EmptySheetAction(callback: () {
+                      Get.back();
+                      Get.toNamed(RoutesNames.categoryView);
+                    }, btnTxt: 'category'):ListView.builder(itemCount: category.categoryList.length,itemBuilder: (context, indeX) {
                       final categoryValue = category.categoryList[indeX];
                       return Column(
                         mainAxisSize: MainAxisSize.min,
@@ -370,7 +410,7 @@ class _AddNewQuoteState extends State<AddNewQuote> {
                  ),
                 ],
               ).paddingOnly(top: 10.h,right: 12.w,left: 12.w);
-            },),),
+            },),).paddingSymmetric(vertical: spacePadding),
             Row(
               spacing: 10.w,
               children: [
@@ -414,5 +454,7 @@ class _AddNewQuoteState extends State<AddNewQuote> {
   }
 
 }
+
+
 
 

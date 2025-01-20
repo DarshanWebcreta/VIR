@@ -7,6 +7,7 @@ import 'package:vir/core/common/shimmer_effect.dart';
 import 'package:vir/core/component/add_new_button.dart';
 import 'package:vir/core/component/custom_appbar.dart';
 import 'package:vir/core/component/custom_card.dart';
+import 'package:vir/core/component/list_shimmer_effect.dart';
 import 'package:vir/core/component/sizebox_widget.dart';
 import 'package:vir/core/constant/app_strings.dart';
 import 'package:vir/core/routes/route_name.dart';
@@ -36,7 +37,7 @@ class _GstListState extends State<GstList> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const CustomAppBar(
-        title: AppStrings.companies,
+        title: AppStrings.gst,
         backBtn: true,
       ),
       body: Column(
@@ -54,15 +55,11 @@ class _GstListState extends State<GstList> {
               child: Observer(
                   builder: (context) {
                     if(gstList.isLoading){
-                      return ListView.builder(
-                        padding: EdgeInsets.symmetric(vertical: 16.h),
-                        itemCount: 10,itemBuilder: (context, index) {
-                        return CustomSizeBox(height: 102.h, width: 0,child: const ShimmerCard(radius: 8,),).paddingOnly(top: 6.h);
-                      },);
+                      return const ListShimmerEffect();
                     }
                     else{
                       return  gstList.gstList.isEmpty
-                          ? const EmptyWidget(title: "No Company found")
+                          ? const EmptyWidget(title: "Gst")
                           : ListView.builder(
                         padding: EdgeInsets.symmetric(vertical: 16.h),
                         itemCount: gstList.gstList.length,

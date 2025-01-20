@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:vir/core/common/empty_widget.dart';
 import 'package:vir/core/component/add_new_button.dart';
 import 'package:vir/core/component/custom_appbar.dart';
+import 'package:vir/core/component/list_shimmer_effect.dart';
 
 import 'package:vir/core/constant/app_strings.dart';
 import 'package:vir/core/routes/route_name.dart';
@@ -46,25 +48,36 @@ class _TcListState extends State<TcList> {
             },
           ),
           Expanded(
-            child: Observer(builder: (context) {
-              return ListView.builder(
-                padding: EdgeInsets.symmetric(vertical: 16.h),
-                itemCount: termsStore.termsList.length,
-                itemBuilder: (context, index) {
-                  final termData = termsStore.termsList[index];
-                  return GestureDetector(
-                    onTap: () {
-                      Get.toNamed(RoutesNames.tcView,arguments:termData );
+            child: RefreshIndicator(
+              onRefresh: () => termsStore.fetchTermList(),
+              child: Observer(builder: (context) {
+                if(termsStore.isLoading){
+                  return const ListShimmerEffect();
+
+                }
+                else{
+                  return  termsStore.termsList.isEmpty
+                      ? const EmptyWidget(title: "Terms & Condition")
+                      :ListView.builder(
+                    padding: EdgeInsets.symmetric(vertical: 16.h),
+                    itemCount: termsStore.termsList.length,
+                    itemBuilder: (context, index) {
+                      final termData = termsStore.termsList[index];
+                      return GestureDetector(
+                        onTap: () {
+                          Get.toNamed(RoutesNames.tcView,arguments:termData );
+                        },
+                        child:
+                        StatusCard(id: termData.id.toString(),deletePress: () {
+                          termsStore.deleteTerm(termData.id);
+                        },status: termData.status,title:termData.title,sort: termData.sortOrder.toString(),).paddingOnly(bottom: 6.h)
+                        ,
+                      );
                     },
-                    child:
-                    StatusCard(id: termData.id.toString(),deletePress: () {
-                      termsStore.deleteTerm(termData.id);
-                    },status: termData.status,title:termData.title,sort: termData.sortOrder.toString(),).paddingOnly(bottom: 6.h)
-                    ,
                   );
-                },
-              );
-            },),
+                }
+              },),
+            ),
           )
         ],
       ).paddingAll(FixSizes.paddingAllAndHorizontol),

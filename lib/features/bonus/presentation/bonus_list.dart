@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:vir/core/common/empty_widget.dart';
 import 'package:vir/core/component/add_new_button.dart';
 import 'package:vir/core/component/custom_appbar.dart';
+import 'package:vir/core/component/list_shimmer_effect.dart';
 
 import 'package:vir/core/constant/app_strings.dart';
 import 'package:vir/core/routes/route_name.dart';
@@ -51,22 +53,30 @@ class _BonusListState extends State<BonusList> {
 
             },
           ),
-         Observer(builder: (context) {
-           return  Expanded(
-             child: RefreshIndicator(
-               onRefresh: () => bonusStore.fetchBonusList(),
+         Expanded(
+           child: RefreshIndicator(
+             onRefresh: () => bonusStore.fetchBonusList(),
 
-               child: ListView.builder(
-                 padding: EdgeInsets.symmetric(vertical: 16.h),
-                 itemCount: bonusStore.bonusList.length,
-                 itemBuilder: (context, index) {
-                   final bonusData = bonusStore.bonusList[index];
-                   return TitleValueWithDate(value: bonusData.bonusValue, id: bonusData.id.toString(), date: bonusData.effectiveDate,);
-                 },
-               ),
-             ),
-           );
-         },)
+             child: Observer(builder: (context) {
+               if(bonusStore.isLoading){
+                 return const ListShimmerEffect();
+
+               }
+               else{
+                 return  bonusStore.bonusList.isEmpty
+                     ? const EmptyWidget(title: "Bonus")
+                     :ListView.builder(
+                   padding: EdgeInsets.symmetric(vertical: 16.h),
+                   itemCount: bonusStore.bonusList.length,
+                   itemBuilder: (context, index) {
+                     final bonusData = bonusStore.bonusList[index];
+                     return TitleValueWithDate(value: bonusData.bonusValue, id: bonusData.id.toString(), date: bonusData.effectiveDate,);
+                   },
+                 );
+               }
+             },),
+           ),
+         )
         ],
       ).paddingAll(FixSizes.paddingAllAndHorizontol),
     );

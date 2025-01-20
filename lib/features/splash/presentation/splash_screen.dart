@@ -5,7 +5,12 @@ import 'package:vir/core/component/app_logo.dart';
 import 'package:vir/core/key/storage_keys.dart';
 import 'package:vir/core/storage/app_storage.dart';
 import 'package:vir/core/theme/app_colors.dart';
+import 'package:vir/features/t&c/presentation/store/terms_store.dart';
+import 'package:vir/injection.dart';
+import 'package:vir/features/category/presentation/store/category_store.dart';
+import 'package:vir/features/company/presentation/store/company_store.dart';
 
+import 'package:vir/features/subject/presentation/store/subject_store.dart';
 import '../../../core/routes/route_name.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -16,8 +21,21 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  final companyList = getIt<CompanyStore>();
+  final subjectList = getIt<SubjectStore>();
+  final category = getIt<CategoryStore>();
+  final tc = getIt<TermsStore>();
   @override
   void initState() {
+    if(StorageManager.readData(StoreKeys.token)!=null){
+      Future(() {
+        companyList.callApi();
+        subjectList.getSubjectList();
+        category.getCategoryList();
+        tc.fetchTermList();
+      },);
+    }
+
     Future.delayed(const Duration(seconds: 3),() {
 
       Get.offAllNamed(StorageManager.readData(StoreKeys.token)==null?

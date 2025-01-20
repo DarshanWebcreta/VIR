@@ -94,13 +94,14 @@ class AppStrings{
   static const String stockHistoryPageTitle = "Stock History";
   static const String picklistTitle = "Pick List";
   static const String subjectListTitle = "Subject List";
-  static const String subjectViewTitle = "Subject View";
+  static const String subjectViewTitle = "Subject Details";
   static const String orderListTitle = "Orders List";
   static const String companies = "Companies";
   static const String companyDetails = "Company Details";
   static const String tcListTitle = "Terms & Conditions List";
   static const String tcViewTitle = "Terms & Condition View";
   static const String esicList = "ESIC Policies";
+  static const String gst = "Gst";
   static const String gstView = "Gst View";
   static const String esicView = "ESIC policy";
 
