@@ -81,7 +81,7 @@ abstract class AppPages {
       page: () => const CategoryList(),
     ),
     GetPage(
-      name: RoutesNames.catgoryView,
+      name: RoutesNames.categoryView,
       page: () =>  CategoryView(categoryData: Get.arguments,),
     ),
 

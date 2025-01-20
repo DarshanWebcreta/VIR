@@ -5,8 +5,10 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:vir/core/component/compnay_list_sheet.dart';
 import 'package:vir/core/component/custom_button.dart';
+import 'package:vir/core/component/empty_sheet_action.dart';
 import 'package:vir/core/component/sizebox_widget.dart';
 import 'package:vir/core/constant/app_strings.dart';
+import 'package:vir/core/routes/route_name.dart';
 import 'package:vir/core/theme/app_colors.dart';
 import 'package:vir/core/utils/fix_sizes.dart';
 import 'package:vir/core/utils/function_component.dart';
@@ -73,7 +75,10 @@ class MonthWiseQuote extends StatelessWidget {
                   title:  company.selectedCompanyName.isEmpty?'Select Company Name':company.selectedCompanyName,
                   onTap: () {
 
-                    FunctionalWidget.bottomSheet(height: 500, child:  const CompanyLists(), title: AppStrings.companyTitle);
+                    FunctionalWidget.bottomSheet(height: 500, child:  company.companyList.isEmpty? EmptySheetAction(callback: () {
+                      Get.back();
+                      Get.toNamed(RoutesNames.companyDetails);
+                    },btnTxt: 'company',):const CompanyLists(), title: AppStrings.companyTitle);
 
                   },
                 ),

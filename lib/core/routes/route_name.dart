@@ -15,7 +15,7 @@ class RoutesNames {
   static const providentFundView = '/provident-fund-view';
 
   static const categoryList = '/categoryList';
-  static const catgoryView = '/catgoryView';
+  static const categoryView = '/categoryView';
 
   static const subjectList = '/subjectList';
   static const subjectView = '/subjectView';

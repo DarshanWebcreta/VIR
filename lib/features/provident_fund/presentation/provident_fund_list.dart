@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:vir/core/common/empty_widget.dart';
 import 'package:vir/core/component/add_new_button.dart';
 import 'package:vir/core/component/custom_appbar.dart';
+import 'package:vir/core/component/list_shimmer_effect.dart';
 
 import 'package:vir/core/constant/app_strings.dart';
 import 'package:vir/core/routes/route_name.dart';
@@ -39,28 +41,36 @@ class _ProvidentFundListState extends State<ProvidentFundList> {
       ),
       body: RefreshIndicator(
         onRefresh: () =>pfStore.fetchPfList() ,
-        child: Observer(builder: (context) {
-          return Column(
-            children: [
-              AddNewButton(
-                onPress: () {
-                  Get.toNamed(RoutesNames.providentFundView);
+        child: Column(
+          children: [
+            AddNewButton(
+              onPress: () {
+                Get.toNamed(RoutesNames.providentFundView);
 
-                },
-              ),
-              Expanded(
-                child: ListView.builder(
-                  padding: EdgeInsets.symmetric(vertical: 16.h),
-                  itemCount: pfStore.pfList.length,
-                  itemBuilder: (context, index) {
-                    final pf = pfStore.pfList[index];
-                    return TitleValueWithDate(value: pf.pfValue,id: pf.id.toString(),date:pf.effectiveDate ,);
-                  },
-                ),
-              )
-            ],
-          );
-        },).paddingAll(FixSizes.paddingAllAndHorizontol),
+              },
+            ),
+            Expanded(
+              child:Observer(builder: (context) {
+                if(pfStore.isLoading){
+                  return const ListShimmerEffect();
+
+                }
+                else{
+                  return  pfStore.pfList.isEmpty
+                      ? const EmptyWidget(title: "Provident fund")
+                      :ListView.builder(
+                    padding: EdgeInsets.symmetric(vertical: 16.h),
+                    itemCount: pfStore.pfList.length,
+                    itemBuilder: (context, index) {
+                      final pf = pfStore.pfList[index];
+                      return TitleValueWithDate(value: pf.pfValue,id: pf.id.toString(),date:pf.effectiveDate ,);
+                    },
+                  );
+                }
+              },),
+            )
+          ],
+        ).paddingAll(FixSizes.paddingAllAndHorizontol),
       ),
     );
   }

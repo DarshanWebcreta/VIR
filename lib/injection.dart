@@ -26,6 +26,7 @@ import 'package:vir/features/company/domain/repository/company_repo.dart';
 import 'package:vir/features/company/domain/usecase/add_company_usecase.dart';
 import 'package:vir/features/company/domain/usecase/company_usecase.dart';
 import 'package:vir/features/company/domain/usecase/delete_company_usecase.dart';
+import 'package:vir/features/company/domain/usecase/update_company.dart';
 import 'package:vir/features/company/presentation/store/company_store.dart';
 import 'package:vir/features/dashboard/data/repositories/dahboard_impl_repo.dart';
 import 'package:vir/features/dashboard/data/repositories/dashboard_remote_repo.dart';
@@ -121,8 +122,10 @@ void setup() {
           () => CompanyImplRepo(companyRemoteRepo: getIt()));
   getIt.registerLazySingleton<CompanyUsecase>(
           () => CompanyUsecase(companyRepo: getIt()));
-  getIt.registerLazySingleton<AddCompanyUsecase>(
-          () => AddCompanyUsecase(companyRepo: getIt()));
+  getIt.registerLazySingleton<AddUpdateCompanyUsecase>(
+          () => AddUpdateCompanyUsecase(companyRepo: getIt()));
+
+
 
   getIt.registerLazySingleton<DeleteCompanyDetailUseCase>(
           () => DeleteCompanyDetailUseCase(companyRepo: getIt()));

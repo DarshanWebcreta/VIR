@@ -90,6 +90,22 @@ abstract class ApiService {
   @DELETE("${ApiPath.companyList}/{id}")
   Future<CommonModel> deleteCompanyDetail(@Path("id") int id);
 
+  @POST("${ApiPath.addCompany}/{id}?_method=PUT")
+  @MultiPart()
+  Future<CommonModel> updateCompanyDetails(
+      @Path("id") int id,
+      @Part(name: "company_name") String companyName,
+      @Part(name: "registration_no") String registrationNo,
+      @Part(name: "provident_fund_no") String providentFundNo,
+      @Part(name: "service_tax_no") String serviceTaxNo,
+      @Part(name: "gst_no") String gstNo,
+      @Part(name: "prof_tax_no") String profTaxNo,
+      @Part(name: "pan_no") String panNo,
+      @Part(name: "gujarat_police_no") String gujaratPoliceNo,
+      @Part(name: "rajasthan_police_no") String rajasthanPoliceNo,
+      @Part(name: "company_logo") File? file,
+      );
+
   @POST(ApiPath.addCompany)
   @MultiPart()
   Future<CommonModel> addCompany(

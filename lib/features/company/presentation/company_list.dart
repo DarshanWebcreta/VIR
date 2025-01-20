@@ -8,6 +8,7 @@ import 'package:vir/core/component/add_new_button.dart';
 import 'package:vir/core/component/custom_appbar.dart';
 import 'package:vir/core/component/custom_card.dart';
 import 'package:vir/core/component/icon_widget.dart';
+import 'package:vir/core/component/list_shimmer_effect.dart';
 import 'package:vir/core/component/sizebox_widget.dart';
 import 'package:vir/core/component/text_widget.dart';
 import 'package:vir/core/constant/app_strings.dart';
@@ -59,15 +60,11 @@ class _CompanyListState extends State<CompanyList> {
               child: Observer(
                 builder: (context) {
                   if(companyList.isLoading){
-                    return ListView.builder(
-                      padding: EdgeInsets.symmetric(vertical: 16.h),
-                      itemCount: 10,itemBuilder: (context, index) {
-                      return CustomSizeBox(height: 102.h, width: 0,child: const ShimmerCard(radius: 8,),).paddingOnly(top: 6.h);
-                    },);
+                    return const ListShimmerEffect();
                   }
                   else{
                     return  companyList.companyList.isEmpty
-                        ? const EmptyWidget(title: "No Company found")
+                        ? const EmptyWidget(title: "Company")
                         : ListView.builder(
                       padding: EdgeInsets.symmetric(vertical: 16.h),
                       itemCount: companyList.companyList.length,
@@ -147,3 +144,5 @@ class _CompanyListState extends State<CompanyList> {
     );
   }
 }
+
+

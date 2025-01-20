@@ -13,6 +13,7 @@ class ImageStrings {
   static const String forgetPassword = '${ImagePaths.imagePath}forget_password.svg';
   static const String home = '${ImagePaths.imagePath}home.svg';
   static const String profile = '${ImagePaths.imagePath}profile.svg';
+  static const String empty = '${ImagePaths.imagePath}Empty_file.svg';
   static const String quote = '${ImagePaths.imagePath}quote.svg';
   static const String reports = '${ImagePaths.imagePath}reports.svg';
   static const String company = '${ImagePaths.imagePath}company.svg';

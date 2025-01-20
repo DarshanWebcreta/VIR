@@ -43,7 +43,12 @@ class UpdateSubjectUsecase implements UseCase<CommonModel, UpdateSubjectParams> 
     return subjectRepo.updateSubject(params.id, params.request);
   }
 }
+class UpdateSubjectParams {
+  final int id;
+  final dynamic request;
 
+  UpdateSubjectParams({required this.id, required this.request});
+}
 class DeleteSubjectUsecase implements UseCase<CommonModel, DeleteSubjectParams> {
   final SubjectRepo subjectRepo;
 
@@ -55,12 +60,7 @@ class DeleteSubjectUsecase implements UseCase<CommonModel, DeleteSubjectParams> 
   }
 }
 
-class UpdateSubjectParams {
-  final int id;
-  final dynamic request;
 
-  UpdateSubjectParams({required this.id, required this.request});
-}
 
 class DeleteSubjectParams {
   final int id;

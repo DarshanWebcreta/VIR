@@ -14,7 +14,7 @@ class LoginModel extends LoginResponse{
       tokenType: json['token_type']??'',
       status: json['status'],
       message: json['message'],
-      data: UserData.fromJson(json['data']),
+      data: json['data']!=null?UserData.fromJson(json['data']):null,
     );
   }
 
@@ -24,7 +24,7 @@ class LoginModel extends LoginResponse{
       'token_type': tokenType,
       'status': status,
       'message': message,
-      'data': data.toJson(),
+      'data': data?.toJson(),
     };
   }
 }

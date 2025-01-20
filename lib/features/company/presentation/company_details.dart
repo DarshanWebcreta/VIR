@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -10,6 +11,7 @@ import 'package:vir/core/component/sizebox_widget.dart';
 import 'package:vir/core/component/text_field_widget.dart';
 
 import 'package:vir/core/constant/app_strings.dart';
+import 'package:vir/core/secrets/api_strings.dart';
 import 'package:vir/core/theme/app_colors.dart';
 import 'package:vir/core/utils/fix_sizes.dart';
 import 'package:vir/core/utils/validations.dart';
@@ -80,25 +82,29 @@ class _CompanyDetailsState extends State<CompanyDetails> {
         text: "Submit",
         callback: () {
           if (key.currentState!.validate()) {
-            if (widget.companyData == null) {
-              addCompany.addCompany(
+
+              addCompany.addUpdateCompany(
+                  id:widget.companyData?.id,
+                  update:widget.companyData==null? false:true,
                   companyName: nameController.text,
                   pfNo: pfController.text,
                   regNo: regController.text,
                   serTax:stController.text ,
                   gstNo: gstController.text,
-                  profTax: ptController.text,
+                  profTax:gstController.text,
                   panNo: panNo.text,
                   gujPoliceNo: gujPoliceNo.text,
                   rjPoliceNo: rjPoliceNo.text,
                  logo: imageFile
+
                   );
-            }
+
+
           }
         },
       ).paddingAll(FixSizes.paddingAllAndHorizontol.w),
-      appBar: const CustomAppBar(
-        title: AppStrings.companyDetails,
+      appBar:  CustomAppBar(
+        title: "${widget.companyData == null ? "Add " : ""}${AppStrings.companyDetails}",
         backBtn: true,
       ),
       body: SingleChildScrollView(
@@ -145,16 +151,27 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                     controller: panNo,
                     labelTxt: 'Pan No*',
                     hintTxt: "Enter pan no",
+
                     validator: Validation.isEmpty),
                 TextFieldWidget(
                     controller: gujPoliceNo,
                     labelTxt: 'Gujarat police No*',
                     hintTxt: "Enter gujarat police no",
+                    textinput: TextInputType.number,
+                    inputFormater: [
+                      FilteringTextInputFormatter.digitsOnly,
+
+                    ],
                     validator: Validation.isEmpty),
                 TextFieldWidget(
                     controller: rjPoliceNo,
                     labelTxt: 'Rajasthan Police No*',
                     hintTxt: "Enter rajasthan police no",
+                    textinput: TextInputType.number,
+                    inputFormater: [
+                      FilteringTextInputFormatter.digitsOnly,
+
+                    ],
                     validator: Validation.isEmpty),
                 CustomSizeBox(
                   height: 60,
@@ -182,7 +199,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                 if(imageFile!=null||widget.companyData?.logo!=null)Stack(
                   alignment: Alignment.topRight,
                   children: [
-                    Container(height:80.h,width: 100.w,decoration: BoxDecoration(borderRadius: BorderRadius.circular(10.r),image: DecorationImage(fit: BoxFit.cover,image: imageFile!=null?FileImage(File(imageFile!.path)):NetworkImage(widget.companyData?.logo??''))),)
+                    Container(height:80.h,width: 100.w,decoration: BoxDecoration(borderRadius: BorderRadius.circular(10.r),image: DecorationImage(fit: BoxFit.cover,image: imageFile!=null?FileImage(File(imageFile!.path)):NetworkImage("${ApiStrings.imageUrl}${widget.companyData?.logo??''}"))),)
                     ,if(imageFile!=null)GestureDetector(
                       onTap: () {
 

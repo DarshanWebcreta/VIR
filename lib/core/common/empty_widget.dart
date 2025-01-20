@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:vir/core/component/image_widget.dart';
+import 'package:vir/core/component/svg_widget.dart';
 
 import 'package:vir/core/component/text_widget.dart';
 import 'package:vir/core/key/image_keys.dart';
@@ -13,9 +14,10 @@ import 'package:vir/core/utils/font_weight.dart';
 
 
 class EmptyWidget extends StatelessWidget {
-  const EmptyWidget({super.key,this.callbackAction,required this.title, this.description,this.error = false });
+  const EmptyWidget({super.key,this.callbackAction,this.btnTxt,required this.title, this.description,this.error = false });
   final String title;
   final String ?description;
+  final String ?btnTxt;
 
   final bool error;
   final VoidCallback ? callbackAction;
@@ -25,7 +27,7 @@ class EmptyWidget extends StatelessWidget {
       child: ListView(
         shrinkWrap: true,
         children: [
-         // const ImageWidget( path:ImageStrings.emptyObject,),
+           const SvgWidget( path:ImageStrings.empty, width: 100,height: 100,),
           Center(child: TextWidget(text:"No $title found!",fontSize: FontSizes.mediuam,clr: AppColors.black,fontWeight: FontWeights.medium, ).paddingOnly(bottom: 8.h)),
           Center(child: TextWidget(text:error?description??"Something went wrong":'No $title available at the moment , Please try after sometime.',fontSize: FontSizes.small,clr: AppColors.black,fontWeight: FontWeights.small,textAlign: TextAlign.center,maxLine: 15, )),
 
@@ -35,7 +37,7 @@ class EmptyWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Icon(Icons.refresh,color:AppColors.themeColor,size: 26.w ,),
-                const TextWidget(text: " Retry",fontSize: FontSizes.mediuam,clr: AppColors.themeColor,fontWeight: FontWeights.medium,)
+                 TextWidget(text: btnTxt??" Retry",fontSize: FontSizes.mediuam,clr: AppColors.themeColor,fontWeight: FontWeights.medium,)
               ],
             ).paddingOnly(top: 14.h),
           )

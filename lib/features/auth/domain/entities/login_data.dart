@@ -6,7 +6,7 @@ class LoginResponse {
   final String tokenType;
   final String status;
   final String message;
-  final UserData data;
+  final UserData? data;
 
   LoginResponse({
     required this.accessToken,

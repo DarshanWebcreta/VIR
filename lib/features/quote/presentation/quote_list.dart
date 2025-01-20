@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:vir/core/common/empty_widget.dart';
 import 'package:vir/core/common/shimmer_effect.dart';
 
 import 'package:vir/core/component/card_widget.dart';
@@ -55,7 +56,7 @@ class _QuatationState extends State<Quatation> {
                   },);
                 }
                 else{
-                  return ListView.builder(padding: EdgeInsets.zero,itemCount: quoteStore.quotes.length,itemBuilder: (context, index) {
+                  return quoteStore.quotes.isEmpty?const EmptyWidget(title: "Quote"):ListView.builder(padding: EdgeInsets.zero,itemCount: quoteStore.quotes.length,itemBuilder: (context, index) {
                     final quoteData = quoteStore.quotes[index];
                     return GestureDetector(
                       onTap: () {

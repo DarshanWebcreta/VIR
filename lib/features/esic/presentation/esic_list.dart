@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:vir/core/common/empty_widget.dart';
 import 'package:vir/core/component/add_new_button.dart';
 import 'package:vir/core/component/custom_appbar.dart';
+import 'package:vir/core/component/list_shimmer_effect.dart';
 
 import 'package:vir/core/constant/app_strings.dart';
 import 'package:vir/core/routes/route_name.dart';
@@ -42,29 +44,39 @@ class _EsicListState extends State<EsicList> {
         title: AppStrings.esicList,
         backBtn: true,
       ),
-      body: RefreshIndicator(
-        onRefresh: () => esicStore.fetchEsicList() ,
-        child: Observer(builder: (context) => Column(
-          children: [
-            AddNewButton(
-              onPress: () {
-                Get.toNamed(RoutesNames.esicView);
+      body: Column(
+        children: [
+          AddNewButton(
+            onPress: () {
+              Get.toNamed(RoutesNames.esicView);
 
-              },
+            },
+          ),
+          Expanded(
+            child: RefreshIndicator(
+              onRefresh: () => esicStore.fetchEsicList() ,
+              child: Observer(builder: (context) {
+                if(esicStore.isLoading){
+                  return const ListShimmerEffect();
+
+                }
+                else{
+                 return esicStore.esicList.isEmpty
+                     ? const EmptyWidget(title: "Esic")
+                     :ListView.builder(
+                   padding: EdgeInsets.symmetric(vertical: 16.h),
+                   itemCount: esicStore.esicList.length,
+                   itemBuilder: (context, index) {
+                     final esic = esicStore.esicList[index];
+                     return TitleValueWithDate(value: esic.esicPolicyValue,date: esic.effectiveDate,id: esic.id.toString(),);
+                   },
+                 );
+                }
+              },),
             ),
-            Expanded(
-              child: ListView.builder(
-                padding: EdgeInsets.symmetric(vertical: 16.h),
-                itemCount: esicStore.esicList.length,
-                itemBuilder: (context, index) {
-                  final esic = esicStore.esicList[index];
-                  return TitleValueWithDate(value: esic.esicPolicyValue,date: esic.effectiveDate,id: esic.id.toString(),);
-                },
-              ),
-            )
-          ],
-        ),).paddingAll(FixSizes.paddingAllAndHorizontol),
-      ),
+          )
+        ],
+      ).paddingAll(FixSizes.paddingAllAndHorizontol),
     );
   }
 }

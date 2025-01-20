@@ -91,7 +91,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   text: AppStrings.submit,
                   callback: () {
                     if(key.currentState!.validate()){
-                      getIt<LoginStore>().login(loginRowData: {"email":email.text,"password":pass.text});
+                      getIt<LoginStore>().login(loginRowData: {"email":email.text.trim(),"password":pass.text.trim()});
 
                     }
                   },

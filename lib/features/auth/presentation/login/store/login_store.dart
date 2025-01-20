@@ -31,7 +31,7 @@ abstract class _LoginStore with Store {
       if(r.status==AppStrings.success){
         FunctionalWidget.showSnackBar(title: r.message, success: true);
         StorageManager.saveData(StoreKeys.token, r.accessToken);
-        StorageManager.saveData(StoreKeys.userId, r.data.id);
+        StorageManager.saveData(StoreKeys.userId, r.data?.id);
         Get.offAllNamed(RoutesNames.mainPage);
       }
       else{

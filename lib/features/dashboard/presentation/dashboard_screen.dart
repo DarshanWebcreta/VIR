@@ -13,6 +13,7 @@ import 'package:vir/core/component/svg_widget.dart';
 import 'package:vir/core/component/text_widget.dart';
 import 'package:vir/core/constant/app_strings.dart';
 import 'package:vir/core/key/image_keys.dart';
+import 'package:vir/core/routes/route_name.dart';
 import 'package:vir/core/theme/app_colors.dart';
 import 'package:vir/core/utils/fix_sizes.dart';
 import 'package:vir/core/utils/font_size.dart';
@@ -36,18 +37,16 @@ class DashboardScreen extends StatefulWidget {
 
 class _DashboardScreenState extends State<DashboardScreen> {
   final dashBoardStore = getIt<DashboardStore>();
+
   final companyList = getIt<CompanyStore>();
-  final subjectList = getIt<SubjectStore>();
-  final category = getIt<CategoryStore>();
-  final tc = getIt<TermsStore>();
 
   @override
   void initState() {
+    if(companyList.companyList.isEmpty){
+      companyList.callApi();
+    }
     dashBoardStore.callApi();
-    companyList.callApi();
-    subjectList.getSubjectList();
-    category.getCategoryList();
-    tc.fetchTermList();
+
     // TODO: implement initState
     super.initState();
   }
@@ -82,7 +81,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   ),
                 ).paddingOnly(bottom:10.h ,top: 8.h),
                 AddNewButton(onPress: () {
-
+                  Get.toNamed(RoutesNames.addNewQuote);
                 },).paddingOnly(top: 10.h)
               ],
             ).paddingAll(FixSizes.paddingAllAndHorizontol),
