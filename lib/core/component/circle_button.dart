@@ -24,6 +24,7 @@ class CircleIconButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CircleAvatar(
+
       radius: size.w / 2,
       backgroundColor: backgroundColor,
       child: IconButton(

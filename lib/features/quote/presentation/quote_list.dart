@@ -6,9 +6,11 @@ import 'package:vir/core/common/empty_widget.dart';
 import 'package:vir/core/common/shimmer_effect.dart';
 
 import 'package:vir/core/component/card_widget.dart';
+import 'package:vir/core/component/circle_button.dart';
 import 'package:vir/core/component/custom_appbar.dart';
 import 'package:vir/core/component/custom_button.dart';
 import 'package:vir/core/component/divider_widget.dart';
+import 'package:vir/core/component/icon_widget.dart';
 import 'package:vir/core/component/sizebox_widget.dart';
 import 'package:vir/core/component/text_widget.dart';
 import 'package:vir/core/routes/route_name.dart';
@@ -70,38 +72,38 @@ class _QuatationState extends State<Quatation> {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                               TextWidget(text: '${quoteData.id} . ${quoteData.name}',fontSize: FontSizes.mediuam,fontWeight: FontWeights.large,),
+                               Row(
+                                 
+                                 children: [
+                                   Expanded(child: TextWidget(text: '${quoteData.id} . ${quoteData.name}',fontSize: FontSizes.mediuam,fontWeight: FontWeights.large,)),
+                                   IconWidget(icon: Icons.delete,onPress: () {
+                                     quoteStore.deleteQuote(quoteData.id);
+                                   },clr: AppColors.red,)
+                                 ],
+                               ),
                                TextWidget(text: 'Security Service . ${quoteData.phoneNo}',fontSize: FontSizes.small,clr: AppColors.grey,fontWeight: FontWeights.small,).paddingOnly(top: 8.h,bottom: 4.h),
                                TextWidget(text: quoteData.email??'No Email Added',fontSize: FontSizes.small,clr: AppColors.grey,fontWeight: FontWeights.small,),
                             ],
                           ).paddingSymmetric(vertical:12.h,horizontal: 10.w),
                           const DividerWidget(),
                           Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
-                              Expanded(
-                                child: Row(
-                                  children: [
-                                    TextButtonWidget(onPress: () {
-                                      quoteStore.sendMail(quoteData.id);
-                                    },btnTxt: "Send Email",),
-                                    const VerticalDeviderWidget().paddingSymmetric(horizontal: 6.w),
-                                    TextButtonWidget(onPress: () {
-                                      Operation.redirectToBrowser(quoteData.quotePdfUrl);
-
-                                    },btnTxt: "Quotation PDF",),
-                                    const VerticalDeviderWidget().paddingSymmetric(horizontal: 6.w),
-
-                                    TextButtonWidget(onPress: () {
-                                      Operation.redirectToBrowser(quoteData.salaryPdfUrl);
-                                    },btnTxt: "Salary PDF",),
-                                  ],
-                                ),
-                              ),
                               TextButtonWidget(onPress: () {
-                                quoteStore.deleteQuote(quoteData.id);
-                                },btnTxt: "Delete",txtClr: AppColors.red,),
+                                quoteStore.sendMail(quoteData.id);
+                              },btnTxt: "Send Email",),
+                              const VerticalDeviderWidget().paddingSymmetric(horizontal: 6.w),
+                              TextButtonWidget(onPress: () {
+                                Operation.redirectToBrowser(quoteData.quotePdfUrl);
+
+                              },btnTxt: "Quotation PDF",),
+                              const VerticalDeviderWidget().paddingSymmetric(horizontal: 6.w),
+
+                              TextButtonWidget(onPress: () {
+                                Operation.redirectToBrowser(quoteData.salaryPdfUrl);
+                              },btnTxt: "Salary PDF",),
                             ],
-                          ).paddingSymmetric(horizontal: 10.w),
+                          ).paddingSymmetric(horizontal: 16.w),
                         ],
                       ),).paddingOnly(bottom: 8.h),
                     );
@@ -142,7 +144,7 @@ class TextButtonWidget extends StatelessWidget {
   final Color  txtClr;
   @override
   Widget build(BuildContext context) {
-    return TextButton(style: TextButton.styleFrom(padding: EdgeInsets.all(1.w)),onPressed:onPress, child:
+    return TextButton(style: TextButton.styleFrom(padding: EdgeInsets.all(1.w),),onPressed:onPress, child:
     TextWidget(text:btnTxt,fontSize: FontSizes.small,clr: txtClr, ));
   }
 }
