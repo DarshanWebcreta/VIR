@@ -62,7 +62,7 @@ class _ProvidentFundViewState extends State<ProvidentFundView> {
 
              TextFieldWidget(controller: pfValue,labelTxt: 'Provident Fund*',hintTxt: "Add provident fund here",validator: Validation.isEmpty,
                  inputFormater: [
-                   FilteringTextInputFormatter.digitsOnly
+                   FilteringTextInputFormatter.allow(Validation.addDigitOnly),
                  ],textinput: TextInputType.number,),
             FunctionalWidget.dropDownButton(
               label: 'Effective Date*',

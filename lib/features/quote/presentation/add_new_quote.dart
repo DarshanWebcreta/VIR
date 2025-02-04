@@ -12,12 +12,14 @@ import 'package:vir/core/component/custom_button.dart';
 import 'package:vir/core/component/custom_card.dart';
 import 'package:vir/core/component/empty_sheet_action.dart';
 import 'package:vir/core/component/sizebox_widget.dart';
+import 'package:vir/core/component/text_widget.dart';
 import 'package:vir/core/constant/app_strings.dart';
 import 'package:vir/core/key/storage_keys.dart';
 import 'package:vir/core/routes/route_name.dart';
 import 'package:vir/core/storage/app_storage.dart';
 import 'package:vir/core/theme/app_colors.dart';
 import 'package:vir/core/utils/fix_sizes.dart';
+import 'package:vir/core/utils/font_size.dart';
 import 'package:vir/features/category/presentation/store/category_store.dart';
 import 'package:vir/features/company/presentation/store/company_store.dart';
 import 'package:vir/features/quote/presentation/store/add_quote/add_new_quote_store.dart';
@@ -238,7 +240,7 @@ class _AddNewQuoteState extends State<AddNewQuote> {
               validator: Validation.email,
               textinput: TextInputType.number,
               inputFormater: [
-                FilteringTextInputFormatter.digitsOnly,
+                FilteringTextInputFormatter.allow(Validation.addDigitOnly),
 
               ],
             ),
@@ -335,21 +337,23 @@ class _AddNewQuoteState extends State<AddNewQuote> {
                   Row(
                     children: [
                        Expanded(child: TextFieldWidget(controller:pivot.wages,inputFormater: [
-                         FilteringTextInputFormatter.digitsOnly
-                       ],textinput: TextInputType.number ,hintTxt: "Wages",validator: Validation.isEmpty,)),
-                      Expanded(child:  TextFieldWidget(hintTxt: "Allowances",inputFormater: [
-                      FilteringTextInputFormatter.digitsOnly
+                         FilteringTextInputFormatter.allow(Validation.addDigitOnly),
+                       ],textinput: TextInputType.number ,hintTxt: "Enter wages here",validator: Validation.isEmpty,)),
+                      Expanded(child:  TextFieldWidget(hintTxt: "Enter allowances here",inputFormater: [
+                        FilteringTextInputFormatter.allow(Validation.addDigitOnly),
+
                       ],textinput: TextInputType.number,controller:pivot.allowance,validator: Validation.isEmpty).paddingOnly(left: 6.w)),
                     ],
                   ),
-                  TextFieldWidget(controller:pivot.hraCharge ,hintTxt: "HRA Charge",inputFormater: [
-              FilteringTextInputFormatter.digitsOnly
-              ],textinput: TextInputType.number,validator:Validation.isEmpty,suffix: CheckBoxWidget(value: pivot.applyPercentageForHra==1?true:false,  callback: () {
+                  TextFieldWidget(controller:pivot.hraCharge ,hintTxt: "Enter HRA Charge here",inputFormater: [
+                    FilteringTextInputFormatter.allow(Validation.addDigitOnly),
+
+                  ],textinput: TextInputType.number,validator:Validation.isEmpty,suffix: CheckBoxWidget(value: pivot.applyPercentageForHra==1?true:false,  callback: () {
                     addQuoteStore.applyHRA(index: index);
 
                   },),),
-                  TextFieldWidget(controller:pivot.agencyCharge,hintTxt: "Agency Service Charge",inputFormater: [
-                    FilteringTextInputFormatter.digitsOnly
+                  TextFieldWidget(controller:pivot.agencyCharge,hintTxt: "Enter agency service charge here",inputFormater: [
+                    FilteringTextInputFormatter.allow(Validation.addDigitOnly),
                   ],textinput: TextInputType.number,validator:Validation.isEmpty,suffix: CheckBoxWidget(value:  pivot.applyPercentageForAgency==1?true:false,  callback: () {
                     addQuoteStore.applyAgency(index: index);
 
@@ -430,6 +434,7 @@ class _AddNewQuoteState extends State<AddNewQuote> {
 
               ],
             ).paddingOnly(top: 20.h,bottom: 10.h),
+            const TextWidget(text: "Terms and Conditions",fontSize: FontSizes.mediuam,fontWeight: FontWeights.large,).paddingSymmetric(vertical: 6.h),
             CheckBoxWidget(callback: () {
               addQuoteStore.selectAllTerms();
             },label:"Select All Terms and Conditions" ,value:addQuoteStore. selectedTerms.length ==tc.termsList.length,fontWeight: FontWeights.medium,).paddingOnly(top: 10.h),
@@ -441,11 +446,10 @@ class _AddNewQuoteState extends State<AddNewQuote> {
 
                addQuoteStore.selectTerms(id: terms.id.toString());
              },label: terms.title ,value: addQuoteStore.selectedTerms.contains(terms.id.toString())?true:false,),).paddingOnly(bottom: 4.h);
-           },).paddingSymmetric(vertical: 10.h),
-            CheckBoxWidget(callback: () {
-              addQuoteStore.setSendEmail();
-            },label:"Send email" ,value: addQuoteStore.sendEmail,fontWeight: FontWeights.medium,).paddingOnly(bottom: 60.h),
-
+           },).paddingOnly(top: 10.h,bottom: 60.h),
+            // CheckBoxWidget(callback: () {
+            //   addQuoteStore.setSendEmail();
+            // },label:"Send email" ,value: addQuoteStore.sendEmail,fontWeight: FontWeights.medium,).paddingOnly(bottom: 60.h),
           ],
         );
       })

@@ -60,7 +60,8 @@ class _BonusViewState extends State<BonusView> {
 
             TextFieldWidget(controller: bonusValue,labelTxt: 'Bonus*',hintTxt: "Enter bonus value",validator: Validation.isEmpty,
               inputFormater: [
-                FilteringTextInputFormatter.digitsOnly
+                FilteringTextInputFormatter.allow(Validation.addDigitOnly),
+
               ],textinput: TextInputType.number,),
             FunctionalWidget.dropDownButton(
               label: 'Effective Date*',

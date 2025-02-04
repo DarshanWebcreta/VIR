@@ -27,6 +27,8 @@ class CategoryView extends StatefulWidget {
 class _CategoryViewState extends State<CategoryView> {
   final categoryName = TextEditingController();
   final category = getIt<CategoryStore>();
+  final key  = GlobalKey<FormState>();
+
   bool enable =true;
   @override
   void dispose() {
@@ -50,29 +52,33 @@ class _CategoryViewState extends State<CategoryView> {
     return Scaffold(
       extendBody: true,
       bottomNavigationBar: CustomButton(height: 52,text: "Submit", callback: () {
-        if(widget.categoryData==null){
-          category.addCategory({
-            "name": categoryName.text,
-            "status": enable?"enable":'disable'
-          });
-        }
-        else{
-          category.updateCategory(widget.categoryData!.id, {
-            "name": categoryName.text,
-            "status": enable?"enable":'disable'
-          });
+        if(key.currentState!.validate()){
+          if(widget.categoryData==null){
+            category.addCategory({
+              "name": categoryName.text,
+              "status": enable?"enable":'disable'
+            });
+          }
+          else{
+            category.updateCategory(widget.categoryData!.id, {
+              "name": categoryName.text,
+              "status": enable?"enable":'disable'
+            });
 
+          }
         }
       },).paddingAll(FixSizes.paddingAllAndHorizontol.w),
-      appBar: const CustomAppBar(title: AppStrings.categoryViewTitle,backBtn: true,),
+      appBar:  CustomAppBar(title: widget.categoryData==null?AppStrings.categoryAddTitle:AppStrings.categoryViewTitle,backBtn: true,),
       body: SingleChildScrollView(
-        child: Column(
+        child: Form(
+            key: key,
+            child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           spacing: 10.h,
           children:  [
             const CustomSizeBox(height: 8, width: 0),
 
-             TextFieldWidget(validator: Validation.isEmpty,controller: categoryName,labelTxt: 'Name*',hintTxt: "Enter caetgory name",),
+            TextFieldWidget(validator: Validation.isEmpty,controller: categoryName,labelTxt: 'Name*',hintTxt: "Enter caetgory name",),
             EnableDisableStatus(callback: () {
               setState(() {
                 enable = !enable;
@@ -81,7 +87,7 @@ class _CategoryViewState extends State<CategoryView> {
 
 
           ],
-        ).paddingAll(FixSizes.paddingAllAndHorizontol),
+        )).paddingAll(FixSizes.paddingAllAndHorizontol),
       ),
     );
 

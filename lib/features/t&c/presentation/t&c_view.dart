@@ -63,7 +63,7 @@ class _TcViewState extends State<TcView> {
 
         }
       },).paddingAll(FixSizes.paddingAllAndHorizontol.w),
-      appBar: const CustomAppBar(title: AppStrings.tcViewTitle,backBtn: true,),
+      appBar:  CustomAppBar(title: widget.masterData==null?AppStrings.tcViewTitle:AppStrings.tcViewUpdateTitle,backBtn: true,),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -71,10 +71,10 @@ class _TcViewState extends State<TcView> {
           children:  [
             const CustomSizeBox(height: 8, width: 0),
              TextFieldWidget(controller: title,hintTxt: "Title",labelTxt: "Title*",validator: Validation.isEmpty,),
-             TextFieldWidget(controller: sorting,hintTxt: "Sort",labelTxt: "Sort*",validator: Validation.isEmpty,
+             TextFieldWidget(controller: sorting,hintTxt: "Add a value for sorting",labelTxt: "Sort Order*",validator: Validation.isEmpty,
                textinput: TextInputType.number,
                inputFormater: [
-                 FilteringTextInputFormatter.digitsOnly,
+                FilteringTextInputFormatter.digitsOnly
 
                ],),
             EnableDisableStatus(enable: status,callback: () {

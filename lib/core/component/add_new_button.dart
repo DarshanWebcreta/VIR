@@ -8,10 +8,11 @@ import 'package:vir/core/utils/font_weight.dart';
 class AddNewButton extends StatelessWidget {
   const AddNewButton({
     super.key,
-    required this.onPress
+    required this.onPress,
+     this.value = ''
   });
   final VoidCallback onPress;
-
+  final String value;
   @override
   Widget build(BuildContext context) {
     return CustomButton(
@@ -21,7 +22,7 @@ class AddNewButton extends StatelessWidget {
       vertiCalPadding: 18.h,
       radius: 6,
       color: AppColors.lightThemeClr,
-      text: "+ Add New ",
+      text: "+ Add New $value",
       callback: onPress,
     );
   }

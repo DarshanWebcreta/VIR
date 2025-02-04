@@ -39,7 +39,7 @@ class AppStrings{
   static const List<String> status = [
     "hold",
     "pending",
-    "approval",
+    "approve",
   ];
 
   static const List<String> tabImages = [
@@ -89,27 +89,29 @@ class AppStrings{
   static const String productTitle = "Products";
   static const String providentFundListTitle = "Provident Fund List";
   static const String categoryListTitle = "Category List";
-  static const String categoryViewTitle = "Category View";
-  static const String providentFundViewTitle = "Provident Fund View";
+  static const String categoryViewTitle = "Category Value";
+  static const String categoryAddTitle = "Add Category Value";
+  static const String providentFundViewTitle = "Provident Fund Value";
   static const String stockHistoryPageTitle = "Stock History";
   static const String picklistTitle = "Pick List";
   static const String subjectListTitle = "Subject List";
   static const String subjectViewTitle = "Subject Details";
   static const String orderListTitle = "Orders List";
-  static const String companies = "Companies";
+  static const String companies = "Company List";
   static const String companyDetails = "Company Details";
   static const String tcListTitle = "Terms & Conditions List";
-  static const String tcViewTitle = "Terms & Condition View";
+  static const String tcViewTitle = "Add Terms & Condition Value";
+  static const String tcViewUpdateTitle = "Update Terms & Condition Value";
   static const String esicList = "ESIC Policies";
-  static const String gst = "Gst";
-  static const String gstView = "Gst View";
+  static const String gst = "Gst List";
+  static const String gstView = "Gst Value";
   static const String esicView = "ESIC policy";
 
   static const String bonusList = "Bonus List";
-  static const String bonusView = "Bonus View";
+  static const String bonusView = "Add Bonus Value";
 
   static const String leaveList = "Leave List";
-  static const String leaveView = "Leave View";
+  static const String leaveView = "Leave Value";
 
 
 

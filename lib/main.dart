@@ -9,7 +9,7 @@ import 'package:vir/core/routes/route_name.dart';
 import 'package:vir/core/theme/app_colors.dart';
 import 'package:vir/injection.dart';
 
-void main() async{
+void main() async {
   await GetStorage.init();
   setup();
   runApp(const MyApp());
@@ -25,10 +25,9 @@ class MyApp extends StatelessWidget {
       builder: (context, child) {
         return GlobalLoaderOverlay(
           disableBackButton: false,
-
           overlayWidgetBuilder: (progress) {
-            return  const Center(
-              child:CircularProgressIndicator() ,
+            return const Center(
+              child: CircularProgressIndicator(),
             );
           },
           child: MediaQuery(
@@ -43,9 +42,8 @@ class MyApp extends StatelessWidget {
                 getPages: AppPages.pages,
                 theme: ThemeData(
                     scaffoldBackgroundColor: AppColors.bgColor,
-
-                    cardTheme: const CardTheme(color:AppColors.white,elevation: 0 )
-                ),
+                    cardTheme:
+                        const CardTheme(color: AppColors.white, elevation: 0)),
               )),
         );
       },

@@ -12,6 +12,7 @@ import 'package:vir/core/component/sizebox_widget.dart';
 import 'package:vir/core/constant/app_strings.dart';
 import 'package:vir/core/routes/route_name.dart';
 import 'package:vir/core/utils/fix_sizes.dart';
+import 'package:vir/core/utils/operation_file.dart';
 import 'package:vir/features/company/presentation/widget/title_with_value.dart';
 import 'package:vir/features/gst_tax/presenation/store/gst_store.dart';
 import 'package:vir/injection.dart';
@@ -77,12 +78,12 @@ class _GstListState extends State<GstList> {
                                     children: [
                                       TitleWithValue(
                                         title: "Id",
-                                        value: '${gst.id} . ',
+                                        value: '${gst.id}',
                                       ),
 
                                       TitleWithValue(
                                         title: "Effective date",
-                                        value: '${gst.effectiveDate} . ',
+                                        value: Operation.dateFormateForUi(gst.effectiveDate),
                                       ),
                                     ],
                                   ),
@@ -95,7 +96,7 @@ class _GstListState extends State<GstList> {
 
                                       TitleWithValue(
                                         title: "Sgst",
-                                        value: '${gst.sGstValue} . ',
+                                        value: gst.sGstValue,
                                       ),
                                     ],
                                   ),

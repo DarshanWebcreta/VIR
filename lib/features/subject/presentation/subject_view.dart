@@ -30,6 +30,8 @@ class _SubjectViewState extends State<SubjectView> {
   final subjectName = TextEditingController();
   final subject = getIt<SubjectStore>();
   bool enable =true;
+  final key  = GlobalKey<FormState>();
+
   @override
   void dispose() {
     subjectName.dispose();
@@ -52,30 +54,34 @@ class _SubjectViewState extends State<SubjectView> {
     return Scaffold(
       extendBody: true,
       bottomNavigationBar: CustomButton(height: 52,text: "Submit", callback: () {
-        if(widget.subjectData==null){
-          subject.addSubject({
-            "name": subjectName.text,
-            "status": enable?"enable":'disable'
-          });
-        }
-        else{
-          subject.updateSubject(widget.subjectData!.id, {
-            "name": subjectName.text,
-            "status": enable?"enable":'disable'
-          });
+        if(key.currentState!.validate()){
+          if(widget.subjectData==null){
+            subject.addSubject({
+              "name": subjectName.text,
+              "status": enable?"enable":'disable'
+            });
+          }
+          else{
+            subject.updateSubject(widget.subjectData!.id, {
+              "name": subjectName.text,
+              "status": enable?"enable":'disable'
+            });
 
+          }
         }
       },).paddingAll(FixSizes.paddingAllAndHorizontol.w),
       appBar:  CustomAppBar(title: "${widget.subjectData == null ? "Add " : ""}${AppStrings.subjectViewTitle}",
         backBtn: true,),
       body: SingleChildScrollView(
-        child: Column(
+        child: Form(
+            key: key,
+            child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           spacing: 10.h,
           children:  [
             const CustomSizeBox(height: 8, width: 0),
 
-             TextFieldWidget(validator: Validation.isEmpty,controller: subjectName,labelTxt: 'Name*',hintTxt: "Enter caetgory name",),
+            TextFieldWidget(validator: Validation.isEmpty,controller: subjectName,labelTxt: 'Name*',hintTxt: "Enter subject name",),
             EnableDisableStatus(callback: () {
               setState(() {
                 enable = !enable;
@@ -84,7 +90,7 @@ class _SubjectViewState extends State<SubjectView> {
 
 
           ],
-        ).paddingAll(FixSizes.paddingAllAndHorizontol),
+        )).paddingAll(FixSizes.paddingAllAndHorizontol),
       ),
     );
 

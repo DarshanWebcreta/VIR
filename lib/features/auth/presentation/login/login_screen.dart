@@ -49,54 +49,57 @@ class _LoginScreenState extends State<LoginScreen> {
 
 
   Future<dynamic> loginSheet() {
-    return FunctionalWidget.bottomSheet(barrierClr: AppColors.transparent,height: 320,canPop: false,child: Form(
+    return FunctionalWidget.bottomSheet(barrierClr: AppColors.transparent,height: 350,canPop: false,child: Form(
       key:key,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      child:Stack(
+        alignment: Alignment.bottomCenter,
         children: [
-          TextFieldWidget(
+          ListView(
 
-            controller: email,
-            hintTxt: "Email address",
-            validator: Validation.email,
-            filled: true,
+            children: [
+              TextFieldWidget(
 
+                controller: email,
+                hintTxt: "Email address",
+                validator: Validation.email,
+                filled: true,
+
+              ),
+              TextFieldWidget(
+                controller: pass,
+                validator: Validation.pass,
+
+                hintTxt: "Password",
+                filled: true,
+              ).paddingOnly(top: FixSizes.paddingVertical, bottom: 12.h),
+              Align(
+                  alignment: Alignment.centerRight,
+                  child: InkWell(
+                    onTap:() {
+                      Get.toNamed(RoutesNames.forgetPassword);
+                    } ,
+                    child: const TextWidget(
+                      text: AppStrings.forgetPassword,
+                      fontSize: FontSizes.small,
+                      fontWeight: FontWeights.medium,
+                      clr: AppColors.brinjalClr,
+                    ),
+                  )),
+            ],
           ),
-          TextFieldWidget(
-            controller: pass,
-            validator: Validation.pass,
+          CustomSizeBox(
+              height: FixSizes.buttonHeight,
+              width: 800,
+              child: CustomButton(
+                text: AppStrings.submit,
+                callback: () {
+                  if(key.currentState!.validate()){
+                    getIt<LoginStore>().login(loginRowData: {"email":email.text.trim(),"password":pass.text.trim()});
 
-            hintTxt: "Password",
-            filled: true,
-          ).paddingOnly(top: FixSizes.paddingVertical, bottom: 12.h),
-          Align(
-              alignment: Alignment.centerRight,
-              child: InkWell(
-                onTap:() {
-                  Get.toNamed(RoutesNames.forgetPassword);
-                } ,
-                child: const TextWidget(
-                  text: AppStrings.forgetPassword,
-                  fontSize: FontSizes.small,
-                  fontWeight: FontWeights.medium,
-                  clr: AppColors.brinjalClr,
-                ),
-              )),
-          const Spacer(),
-          Center(
-            child: CustomSizeBox(
-                height: FixSizes.buttonHeight,
-                width: 800,
-                child: CustomButton(
-                  text: AppStrings.submit,
-                  callback: () {
-                    if(key.currentState!.validate()){
-                      getIt<LoginStore>().login(loginRowData: {"email":email.text.trim(),"password":pass.text.trim()});
+                  }
+                },
+              )).paddingOnly(top: 30.h)
 
-                    }
-                  },
-                )).paddingOnly(top: 30.h),
-          )
         ],
       ),
     ), title: AppStrings.loginSheetTitle,descriptrion: AppStrings.loginSheetDesciption,isDismissible: false);
