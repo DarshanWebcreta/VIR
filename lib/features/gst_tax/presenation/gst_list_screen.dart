@@ -44,6 +44,7 @@ class _GstListState extends State<GstList> {
       body: Column(
         children: [
           AddNewButton(
+            value: 'Gst',
             onPress: () {
 
               Get.toNamed(RoutesNames.gstDetails,);

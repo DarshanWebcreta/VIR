@@ -78,7 +78,7 @@ class _CategoryViewState extends State<CategoryView> {
           children:  [
             const CustomSizeBox(height: 8, width: 0),
 
-            TextFieldWidget(validator: Validation.isEmpty,controller: categoryName,labelTxt: 'Name*',hintTxt: "Enter caetgory name",),
+            TextFieldWidget(validator: Validation.isEmpty,controller: categoryName,labelTxt: 'Name*',hintTxt: "Enter category name",),
             EnableDisableStatus(callback: () {
               setState(() {
                 enable = !enable;

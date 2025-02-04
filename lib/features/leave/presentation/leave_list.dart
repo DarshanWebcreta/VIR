@@ -49,6 +49,7 @@ class _LeaveListState extends State<LeaveList> {
       body: Column(
         children: [
           AddNewButton(
+            value: 'Leave',
             onPress: () {
               Get.toNamed(RoutesNames.leaveView);
 

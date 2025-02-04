@@ -11,6 +11,7 @@ import 'package:vir/core/component/list_shimmer_effect.dart';
 import 'package:vir/core/constant/app_strings.dart';
 import 'package:vir/core/routes/route_name.dart';
 import 'package:vir/core/utils/fix_sizes.dart';
+import 'package:vir/core/utils/function_component.dart';
 import 'package:vir/features/category/presentation/store/category_store.dart';
 import 'package:vir/features/master/presentation/widget/status_card.dart';
 import 'package:vir/injection.dart';
@@ -42,6 +43,7 @@ class _CategoryListState extends State<CategoryList> {
       body: Column(
         children: [
           AddNewButton(
+            value: 'Category',
             onPress: () {
               Get.toNamed(RoutesNames.categoryView);
 
@@ -68,7 +70,11 @@ class _CategoryListState extends State<CategoryList> {
                           Get.toNamed(RoutesNames.categoryView,arguments: categoryData);
                         },
                         child:    StatusCard(id: categoryData.id.toString(),title:  categoryData.name,status:categoryData.status,deletePress: () {
-                          category.deleteCategory(categoryData.id);
+                          FunctionalWidget.askUserDialog( cancel: () {
+                            Get.back();
+                          }, yes: () {
+                            category.deleteCategory(categoryData.id);
+                          }, title: "Are you sure you want to delete category?", des: 'This action cannot be undone.');
                         }, ).paddingOnly(bottom: 6.h)
                         ,
                       );

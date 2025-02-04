@@ -48,6 +48,7 @@ class _BonusListState extends State<BonusList> {
       body: Column(
         children: [
           AddNewButton(
+            value: 'Bonus',
             onPress: () {
               Get.toNamed(RoutesNames.bonusView);
 

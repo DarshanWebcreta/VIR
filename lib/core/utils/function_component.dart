@@ -80,7 +80,69 @@ class FunctionalWidget {
       ],
     );
   }
+  static Future<dynamic> askUserDialog(
+      {required VoidCallback cancel,
+        required VoidCallback yes,
+        required String title,
+        bool subDec = false,
+        required String des,
+        String sDec = ''}) {
+    return showDialog(
 
+      context: Get.context!,
+      builder: (context) {
+        return AlertDialog(
+          backgroundColor:AppColors.bgColor,
+          // insetPadding: EdgeInsets.all(16.w),
+          // contentPadding: EdgeInsets.all(16.w),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12.r),
+          ),
+          content: Padding(
+            padding: EdgeInsets.symmetric(vertical: 16.h),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(
+                  Icons.question_mark,
+                  size: 60.w,
+                  color: AppColors.themeColor,
+                  weight: 5,
+                ),
+                SizedBox(
+                  height: 30.h,
+                ),
+                TextWidget(text: title,fontSize: FontSizes.mediuam,fontWeight: FontWeights.medium,maxLine: 4,textAlign: TextAlign.center,),
+                TextWidget(text: des,fontSize: FontSizes.small,fontWeight: FontWeights.small,maxLine: 4,textAlign: TextAlign.center,clr: AppColors.grey,).paddingOnly(bottom: 38.h,top: 8.h, right: 10.w, left: 10.w),
+
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      height: 38.h,
+                      width: 114.w,
+                      child:CustomButton(text: "Cancel", callback: cancel,color: AppColors.bgColor,fontClr: AppColors.themeColor,borderClr: AppColors.themeColor,),
+                    ),
+                    SizedBox(
+                      width: 10.w,
+                    ),
+                    SizedBox(
+                      height: 38.h,
+                      width: 114.w,
+                      child:CustomButton(text: "Yes", callback: yes,color: AppColors.themeColor,fontClr: AppColors.white,),
+                    ),
+
+                  ],
+                )
+              ],
+            ),
+          ),
+        );
+      },
+    );
+
+  }
   static void showSnackBar({required String title, required bool success}) {
     Fluttertoast.cancel();
     Fluttertoast.showToast(

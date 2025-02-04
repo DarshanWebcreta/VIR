@@ -11,6 +11,7 @@ import 'package:vir/core/component/list_shimmer_effect.dart';
 import 'package:vir/core/constant/app_strings.dart';
 import 'package:vir/core/routes/route_name.dart';
 import 'package:vir/core/utils/fix_sizes.dart';
+import 'package:vir/core/utils/function_component.dart';
 import 'package:vir/features/master/presentation/widget/status_card.dart';
 import 'package:vir/features/t&c/presentation/store/terms_store.dart';
 import 'package:vir/injection.dart';
@@ -42,6 +43,7 @@ class _TcListState extends State<TcList> {
       body: Column(
         children: [
           AddNewButton(
+            value: "Terms & Condition",
             onPress: () {
               Get.toNamed(RoutesNames.tcView, );
 
@@ -69,7 +71,14 @@ class _TcListState extends State<TcList> {
                         },
                         child:
                         StatusCard(id: termData.id.toString(),deletePress: () {
-                          termsStore.deleteTerm(termData.id);
+                          FunctionalWidget.askUserDialog( cancel: () {
+                            Get.back();
+                          }, yes: () {
+                            termsStore.deleteTerm(termData.id);
+
+
+
+                          }, title: "Are you sure you want to delete this?", des: 'This action cannot be undone.');
                         },status: termData.status,title:termData.title,sort: termData.sortOrder.toString(),).paddingOnly(bottom: 6.h)
                         ,
                       );

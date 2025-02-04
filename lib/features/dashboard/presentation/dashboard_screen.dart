@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -60,52 +62,61 @@ class _DashboardScreenState extends State<DashboardScreen> {
           FunctionalWidget.logout();
         }, icon: const IconWidget(icon: Icons.logout,clr: AppColors.red,size: 24,))
       ],backgroundColor: AppColors.white,leading: const AppLogo().paddingAll(10.w),leadingWidth: 100,shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.r)),),
-      body: Observer(builder: (context) {
-        if(!dashBoardStore.isLoading){
-          return RefreshIndicator(
-            onRefresh: () => dashBoardStore.callApi(),
-            child: ListView(
-              children: [
-                 HomeCardWidget(
-                  svgIcon: ImageStrings.quote,
-                  value:dashBoardStore.dashboardModel?.data.quoteCount ,
-                  title: "Quotation",
-                ),
-                // const HomeCardWidget(
-                //   svgIcon: ImageStrings.company,
-                //   value: 78,
-                //   title: "Total Companies",
-                // ).paddingSymmetric(vertical: 8.h),
-                GestureDetector(
-                  onTap: () {
-                    FunctionalWidget.bottomSheet(height: 500, child:  MonthWiseQuote(), title: AppStrings.monthWiseQuote);
-                  },
-                  child: const HomeCardWidget(
-                    svgIcon: ImageStrings.reports,
-
-                    title: "Month Wise Quote PDF",
+      body: PopScope(
+        canPop: false,
+        onPopInvoked: (didPop) => FunctionalWidget.askUserDialog( cancel:
+            () {
+              Get.back();
+            }, yes: () {
+              exit(0);
+            }, title: " Do you really want to exit?", des: 'Any unsaved changes may be lost.'),
+        child: Observer(builder: (context) {
+          if(!dashBoardStore.isLoading){
+            return RefreshIndicator(
+              onRefresh: () => dashBoardStore.callApi(),
+              child: ListView(
+                children: [
+                   HomeCardWidget(
+                    svgIcon: ImageStrings.quote,
+                    value:dashBoardStore.dashboardModel?.data.quoteCount ,
+                    title: "Quotation",
                   ),
-                ).paddingOnly(bottom:10.h ,top: 8.h),
-                AddNewButton(value: "Quote",onPress: () {
-                  Get.toNamed(RoutesNames.addNewQuote);
-                },).paddingOnly(top: 10.h)
+                  // const HomeCardWidget(
+                  //   svgIcon: ImageStrings.company,
+                  //   value: 78,
+                  //   title: "Total Companies",
+                  // ).paddingSymmetric(vertical: 8.h),
+                  GestureDetector(
+                    onTap: () {
+                      FunctionalWidget.bottomSheet(height: 500, child:  MonthWiseQuote(), title: AppStrings.monthWiseQuote);
+                    },
+                    child: const HomeCardWidget(
+                      svgIcon: ImageStrings.reports,
+
+                      title: "Month Wise Quote PDF",
+                    ),
+                  ).paddingOnly(bottom:10.h ,top: 8.h),
+                  AddNewButton(value: "Quote",onPress: () {
+                    Get.toNamed(RoutesNames.addNewQuote);
+                  },).paddingOnly(top: 10.h)
+                ],
+              ).paddingAll(FixSizes.paddingAllAndHorizontol),
+            );
+
+          }
+          else{
+            return  Column(
+              children: [
+                const CustomSizeBox(height: 67, width:0,child: ShimmerCard(radius: 8,),),
+                const CustomSizeBox(height: 67, width:0,child: ShimmerCard(radius: 8,),).paddingOnly(top: 8.h,bottom: 10.h),
+                const CustomSizeBox(height: 67, width:0,child: ShimmerCard(radius: 8,),),
+
+
               ],
-            ).paddingAll(FixSizes.paddingAllAndHorizontol),
-          );
-
-        }
-        else{
-          return  Column(
-            children: [
-              const CustomSizeBox(height: 67, width:0,child: ShimmerCard(radius: 8,),),
-              const CustomSizeBox(height: 67, width:0,child: ShimmerCard(radius: 8,),).paddingOnly(top: 8.h,bottom: 10.h),
-              const CustomSizeBox(height: 67, width:0,child: ShimmerCard(radius: 8,),),
-
-
-            ],
-          );
-        }
-      },),
+            );
+          }
+        },),
+      ),
     );
   }
 }
