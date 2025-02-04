@@ -67,15 +67,15 @@ class _GstViewState extends State<GstView> {
 
             TextFieldWidget(controller: cgstValue,labelTxt: 'CGST*',hintTxt: "Enter cgst value",validator: Validation.isEmpty,
               inputFormater: [
-                FilteringTextInputFormatter.digitsOnly
+                FilteringTextInputFormatter.allow(Validation.addDigitOnly),
               ],textinput: TextInputType.number,),
             TextFieldWidget(controller: sgstValue,labelTxt: 'SGST*',hintTxt: "Enter sgst value",validator: Validation.isEmpty,
               inputFormater: [
-                FilteringTextInputFormatter.digitsOnly
+                FilteringTextInputFormatter.allow(Validation.addDigitOnly),
               ],textinput: TextInputType.number,),
             TextFieldWidget(controller: igstValue,labelTxt: 'IGST*',hintTxt: "Enter igst value",validator: Validation.isEmpty,
               inputFormater: [
-                FilteringTextInputFormatter.digitsOnly
+                FilteringTextInputFormatter.allow(Validation.addDigitOnly),
               ],textinput: TextInputType.number,),
             FunctionalWidget.dropDownButton(
               label: 'Effective Date*',

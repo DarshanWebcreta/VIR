@@ -29,17 +29,22 @@ final VoidCallback deletePress;
               mainAxisAlignment:
               MainAxisAlignment.spaceBetween,
               children: [
-                 TextWidget(
-                  text:id ,
-                  fontSize: FontSizes.mediuam,
-                  fontWeight: FontWeights.small,
-                ),
-               if(sort!=null) TextWidget(
-                  text:"Sort . $sort" ,
-                  fontSize: FontSizes.mediuam,
-                  fontWeight: FontWeights.small,
-                ),
-                CustomCard(child:  TextWidget(text: status,).paddingSymmetric(vertical: 2.h,horizontal: 4.w))
+                 Expanded(
+                   child: TextWidget(
+                    text:id ,
+                    fontSize: FontSizes.mediuam,
+                    fontWeight: FontWeights.small,
+                                   ),
+                 ),
+               if(sort!=null) Expanded(
+                 child: TextWidget(
+                    text:"Sort . $sort" ,
+                    fontSize: FontSizes.mediuam,
+                    fontWeight: FontWeights.small,
+                  ),
+               ),
+                SizedBox(
+                    child: CustomCard(child:  TextWidget(text: status,).paddingSymmetric(vertical: 2.h,horizontal: 4.w)))
               ],
             ),
              Row(

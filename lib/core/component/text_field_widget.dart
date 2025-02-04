@@ -43,40 +43,37 @@ class TextFieldWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
       if(labelTxt.isNotEmpty)  TextWidget(text: labelTxt,fontSize: FontSizes.small,fontWeight: FontWeights.large,).paddingOnly(bottom: 6.h),
-        SizedBox(
-          height: height.h,
-          child: TextFormField(
+        TextFormField(
 
-            readOnly: !enable,
-            obscureText: obscureTxt,
-            inputFormatters: inputFormater ?? [],
-            autovalidateMode: AutovalidateMode.onUserInteraction,
-            controller: controller, // Controller can be null
-            textInputAction: textInputAction,
-            maxLines: maxLine,
-            keyboardType: textinput,
-            textAlign:centerTitle? TextAlign.center:TextAlign.left,
-            validator: validator,
-            onChanged: onChanged, // onChanged callback
-            style: googleDMSansSmall(clr: AppColors.grey,size:fontSize,weight: weight,),
-            decoration: InputDecoration(
+          readOnly: !enable,
+          obscureText: obscureTxt,
+          inputFormatters: inputFormater ?? [],
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+          controller: controller, // Controller can be null
+          textInputAction: textInputAction,
+          maxLines: maxLine,
+          keyboardType: textinput,
+          textAlign:centerTitle? TextAlign.center:TextAlign.left,
+          validator: validator,
+          onChanged: onChanged, // onChanged callback
+          style: googleDMSansSmall(clr: AppColors.grey,size:fontSize,weight: weight,),
+          decoration: InputDecoration(
 
-              errorStyle:  TextStyle(fontSize: errorDisplay?12.sp:0),
+            errorStyle:  TextStyle(fontSize: !errorDisplay?12.sp:0),
 
-              filled: filled,
-              fillColor:filledClr ,
-              contentPadding: EdgeInsets.symmetric(vertical: verticalPad.h, horizontal: 16.w),
-              hintText: hintTxt,
-              hintStyle:googleDMSansSmall(clr: AppColors.grey,size: FontSizes.small,weight: FontWeights.medium,),
-              suffixIcon: suffix?.paddingOnly(right: 16.w),
-              prefixIcon: prefix,
-              suffixIconConstraints: const BoxConstraints(),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8.r),
-                borderSide: !filled || !errorDisplay
-                    ? BorderSide(color: AppColors.grey.withValues(alpha:0.5))
-                    : BorderSide.none,
-              ),
+            filled: filled,
+            fillColor:filledClr ,
+            contentPadding: EdgeInsets.symmetric(vertical: verticalPad.h, horizontal: 16.w),
+            hintText: hintTxt,
+            hintStyle:googleDMSansSmall(clr: AppColors.grey,size: FontSizes.small,weight: FontWeights.medium,),
+            suffixIcon: suffix?.paddingOnly(right: 16.w),
+            prefixIcon: prefix,
+            suffixIconConstraints: const BoxConstraints(),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8.r),
+              borderSide: !filled || !errorDisplay
+                  ? BorderSide(color: AppColors.grey.withValues(alpha:0.5))
+                  : BorderSide.none,
             ),
           ),
         ),

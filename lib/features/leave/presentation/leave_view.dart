@@ -61,7 +61,7 @@ class _LeaveViewState extends State<LeaveView> {
 
             TextFieldWidget(controller: leaveValue,labelTxt: 'Leave*',hintTxt: "Enter leave value",validator: Validation.isEmpty,
               inputFormater: [
-                FilteringTextInputFormatter.digitsOnly
+                FilteringTextInputFormatter.allow(Validation.addDigitOnly),
               ],textinput: TextInputType.number,),
             FunctionalWidget.dropDownButton(
               label: 'Effective Date*',

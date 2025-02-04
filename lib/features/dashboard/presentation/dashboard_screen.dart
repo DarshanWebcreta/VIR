@@ -7,6 +7,7 @@ import 'package:vir/core/component/add_new_button.dart';
 import 'package:vir/core/component/app_logo.dart';
 
 import 'package:vir/core/component/card_widget.dart';
+import 'package:vir/core/component/icon_widget.dart';
 import 'package:vir/core/component/sizebox_widget.dart';
 
 import 'package:vir/core/component/svg_widget.dart';
@@ -14,6 +15,7 @@ import 'package:vir/core/component/text_widget.dart';
 import 'package:vir/core/constant/app_strings.dart';
 import 'package:vir/core/key/image_keys.dart';
 import 'package:vir/core/routes/route_name.dart';
+import 'package:vir/core/storage/app_storage.dart';
 import 'package:vir/core/theme/app_colors.dart';
 import 'package:vir/core/utils/fix_sizes.dart';
 import 'package:vir/core/utils/font_size.dart';
@@ -53,7 +55,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(backgroundColor: AppColors.white,leading: const AppLogo().paddingAll(10.w),leadingWidth: 100,shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.r)),),
+      appBar: AppBar(actions: [
+        IconButton(onPressed: () {
+          FunctionalWidget.logout();
+        }, icon: const IconWidget(icon: Icons.logout,clr: AppColors.red,size: 24,))
+      ],backgroundColor: AppColors.white,leading: const AppLogo().paddingAll(10.w),leadingWidth: 100,shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.r)),),
       body: Observer(builder: (context) {
         if(!dashBoardStore.isLoading){
           return RefreshIndicator(
@@ -80,7 +86,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     title: "Month Wise Quote PDF",
                   ),
                 ).paddingOnly(bottom:10.h ,top: 8.h),
-                AddNewButton(onPress: () {
+                AddNewButton(value: "Quote",onPress: () {
                   Get.toNamed(RoutesNames.addNewQuote);
                 },).paddingOnly(top: 10.h)
               ],

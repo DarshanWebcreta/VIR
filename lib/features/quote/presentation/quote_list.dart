@@ -39,7 +39,7 @@ class _QuatationState extends State<Quatation> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppBar(title: "Quote",home: true,),
+      appBar: const CustomAppBar(title: "Quote List",home: true,),
       body: Column(
         children: [
           CustomButton(text: "+ Add New Quote", callback: () {

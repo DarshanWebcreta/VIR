@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:vir/core/component/svg_widget.dart';
 
@@ -49,55 +50,56 @@ class _MainScreenState extends State<MainScreen> {
         },
       ),
       bottomNavigationBar: Container(
-          padding: EdgeInsets.zero,
-          height:Platform.isIOS?85.h:67.h,
-          //  height:ResponsiveDesign.isMobile(context)? 80.h:110.h,
-          width: 1.sw,
-          decoration:  BoxDecoration(
-              borderRadius:  BorderRadius.only(
-                  topRight: Radius.circular(16.r),
-                  topLeft: Radius.circular(16.r)),
-              color: AppColors.themeColor,
-              gradient:AppColors.gradiant()
-
+        padding: EdgeInsets.zero,
+        height: Platform.isIOS ? 85.h : 67.h,
+        width: 1.sw,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.only(
+            topRight: Radius.circular(16.r),
+            topLeft: Radius.circular(16.r),
           ),
+          color: AppColors.themeColor,
+          gradient: AppColors.gradiant(),
+        ),
+        child: Center( // Outer Center to center the Row
           child: Padding(
-            padding: EdgeInsets.only(left: Get.context!.height<650?24.w:35.w),
-            child: Center(
-              child: ListView.builder(
-
-                padding: EdgeInsets.zero,
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                scrollDirection: Axis.horizontal,
-                itemCount: 4,
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: EdgeInsets.only(right: 50.w),
-                    child: Observer(builder: (context) {
-                      return InkWell(
-                        onTap: () {
-                          mainScreenTab.changeTab(index);
-                        },
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-
-                            Container(
-                              decoration: BoxDecoration(color:  mainScreenTab.index==index? AppColors.white:AppColors.transparent,borderRadius: BorderRadius.circular(8.r)),
-                              child: SvgWidget(width: 22, height: 22, path: AppStrings.tabImages[index],colorFilter:  ColorFilter.mode(mainScreenTab.index==index?AppColors.themeColor:AppColors.white, BlendMode.srcIn),).paddingAll(6.w),
+            padding: EdgeInsets.symmetric(horizontal: Get.context!.height < 650 ? 24.w : 35.w), // Consistent horizontal padding
+            child: Row( // Use a Row for horizontal layout
+              mainAxisAlignment: MainAxisAlignment.spaceAround, // Distribute items evenly (or use spaceEvenly)
+              children: List.generate(4, (index) { // Use List.generate for cleaner item creation
+                return Observer(
+                  builder: (context) {
+                    return InkWell(
+                      onTap: () {
+                        mainScreenTab.changeTab(index);
+                      },
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Container(
+                            decoration: BoxDecoration(
+                              color: mainScreenTab.index == index ? AppColors.white : AppColors.transparent,
+                              borderRadius: BorderRadius.circular(8.r),
                             ),
-                            TextWidget(text: AppStrings.title[index],fontWeight:FontWeight.normal,fontSize: FontSizes.mini,clr: AppColors.white ,).paddingOnly(top: 4.h)
-                          ],
-                        ),
-                      );
-                    },)
-                  );
-                },
-              ),
+                            child: SvgWidget(width: 22, height: 22, path: AppStrings.tabImages[index],colorFilter:  ColorFilter.mode(mainScreenTab.index==index?AppColors.themeColor:AppColors.white, BlendMode.srcIn),).paddingAll(6.w),
+                          ),
+                          TextWidget(
+                            text: AppStrings.title[index],
+                            fontWeight: FontWeight.normal,
+                            fontSize: FontSizes.mini,
+                            clr: AppColors.white,
+                          ).paddingOnly(top: 4.h),
+                        ],
+                      ),
+                    );
+                  },
+                );
+              }),
             ),
-          )) ,
+          ),
+        ),
+      ) ,
     );
   }
 }

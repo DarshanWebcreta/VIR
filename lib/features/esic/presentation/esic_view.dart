@@ -61,9 +61,10 @@ class _EsicViewState extends State<EsicView> {
           children:  [
             const CustomSizeBox(height: 8, width: 0),
 
-            TextFieldWidget(controller: esicValue,labelTxt: 'Esic Policy*',hintTxt: "Add esic policy here",validator: Validation.isEmpty,
+            TextFieldWidget(controller: esicValue,labelTxt: 'Esic policy value*',hintTxt: "Add esic policy value  here",validator: Validation.isEmpty,
               inputFormater: [
-                FilteringTextInputFormatter.digitsOnly
+
+                FilteringTextInputFormatter.allow(Validation.addDigitOnly),
               ],textinput: TextInputType.number,),
             FunctionalWidget.dropDownButton(
               label: 'Effective Date*',
