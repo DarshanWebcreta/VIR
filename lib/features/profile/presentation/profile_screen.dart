@@ -14,6 +14,7 @@ import 'package:vir/core/utils/font_size.dart';
 import 'package:vir/core/utils/font_weight.dart';
 import 'package:vir/core/utils/function_component.dart';
 import 'package:vir/core/utils/validations.dart';
+import 'package:vir/features/main_screen/store/main_screen_store.dart';
 import 'package:vir/features/profile/presentation/store/profile_store.dart';
 import 'package:vir/injection.dart';
 
@@ -37,6 +38,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
   final profileKey = GlobalKey<FormState>();
   final passwordKey = GlobalKey<FormState>();
+  final MainScreenTab mainScreenTab = getIt<MainScreenTab>();
+  
   @override
   void dispose() {
     currentPass.dispose();
@@ -50,90 +53,94 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
     return Scaffold(
       appBar: const CustomAppBar(title: "Profile"),
-      body: Observer(builder: (context) {
-        final profileData = profileStore.profileModel?.data;
-        return RefreshIndicator(
-          onRefresh: () => profileStore.fetchProfile(),
-          child: ListView(
+      body: PopScope(
+        canPop: false,
+        onPopInvoked: (didPop) => mainScreenTab.changeTab(0),
+        child: Observer(builder: (context) {
+          final profileData = profileStore.profileModel?.data;
+          return RefreshIndicator(
+            onRefresh: () => profileStore.fetchProfile(),
+            child: ListView(
+                      children: [
+            Form(
+              key: profileKey,
+        
+              child: cardWidget(child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const TextWidget(text: "Profile Details",fontSize: FontSizes.large,fontWeight: FontWeights.large,).paddingOnly(bottom: 16.h),
+                  TextFieldWidget(controller: profileData?.fullName,labelTxt: "User name*",hintTxt: "Enter user name",validator: Validation.isEmpty,).paddingOnly(bottom: 6.h),
+                  TextFieldWidget(controller: profileData?.email,labelTxt: "Email*",hintTxt: "Enter email ",validator: Validation.email,),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    spacing: 6.w,
                     children: [
-          Form(
-            key: profileKey,
-
-            child: cardWidget(child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const TextWidget(text: "Profile Details",fontSize: FontSizes.large,fontWeight: FontWeights.large,).paddingOnly(bottom: 16.h),
-                TextFieldWidget(controller: profileData?.fullName,labelTxt: "User name*",hintTxt: "Enter user name",validator: Validation.isEmpty,).paddingOnly(bottom: 6.h),
-                TextFieldWidget(controller: profileData?.email,labelTxt: "Email*",hintTxt: "Enter email ",validator: Validation.email,),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  spacing: 6.w,
-                  children: [
-                    // CustomButton(borderClr: AppColors.themeColor,color: AppColors.transparent,fontClr: AppColors.themeColor,text: "Discard", callback: () {
-                    //
-                    // },horiZontalPadding: 15,vertiCalPadding: 6,),
-                    CustomButton(text: "Save", callback: () {
-                      if(profileKey.currentState!.validate()){
-                        profileStore.updateProfile({
-                          "name":profileData?.fullName.text,
-                          "email": profileData?.email.text
-                        });
-                      }
-                    },horiZontalPadding: 15,vertiCalPadding: 6,),
-
-                  ],
-                ).paddingOnly(top: 18.h),
-
-              ],
-            ))
-                .paddingOnly(top: 24.h,bottom: 12.h),
-          ),
-
-          Form(
-            key: passwordKey,
-            child: cardWidget(child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const TextWidget(text: "Update Password",fontSize: FontSizes.large,fontWeight: FontWeights.large,).paddingOnly(bottom: 16.h),
-                 TextFieldWidget(controller: currentPass,labelTxt: "Current Password*",hintTxt: "Enter password",validator: Validation.isEmpty,).paddingOnly(bottom: 10.h),
-                 TextFieldWidget(controller: oldPass,labelTxt: "New Password*",hintTxt: "Enter New password ",validator: Validation.isEmpty,).paddingOnly(bottom: 10.h),
-                 TextFieldWidget(controller: newPass,labelTxt: "Confirm New Password*",hintTxt: "Enter New password ",validator:(p0) {
-                   if(p0!.isEmpty){
-                     return 'required field';
-                   }
-                   else if(p0!=oldPass.text){
-                     FunctionalWidget.showSnackBar(title: "Password does not match", success: false);
-                     return '';
-
-                   }
-                   return null;
-                 } ,),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  spacing: 6.w,
-                  children: [
-                    // CustomButton(borderClr: AppColors.themeColor,color: AppColors.transparent,fontClr: AppColors.themeColor,text: "Discard", callback: () {
-                    //
-                    // },horiZontalPadding: 15,vertiCalPadding: 6,),
-                    CustomButton(text: "Save", callback: () {
-                      if(passwordKey.currentState!.validate()){
-
-                      }
-                    },horiZontalPadding: 15,vertiCalPadding: 6,),
-
-                  ],
-                ).paddingOnly(top: 18.h),
-
-              ],
-            )),
-          ),
-
-
-
+                      // CustomButton(borderClr: AppColors.themeColor,color: AppColors.transparent,fontClr: AppColors.themeColor,text: "Discard", callback: () {
+                      //
+                      // },horiZontalPadding: 15,vertiCalPadding: 6,),
+                      CustomButton(text: "Save", callback: () {
+                        if(profileKey.currentState!.validate()){
+                          profileStore.updateProfile({
+                            "name":profileData?.fullName.text,
+                            "email": profileData?.email.text
+                          });
+                        }
+                      },horiZontalPadding: 15,vertiCalPadding: 6,),
+        
                     ],
-                  ),
-        );
-      },),
+                  ).paddingOnly(top: 18.h),
+        
+                ],
+              ))
+                  .paddingOnly(top: 24.h,bottom: 12.h),
+            ),
+        
+            Form(
+              key: passwordKey,
+              child: cardWidget(child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const TextWidget(text: "Update Password",fontSize: FontSizes.large,fontWeight: FontWeights.large,).paddingOnly(bottom: 16.h),
+                   TextFieldWidget(controller: currentPass,labelTxt: "Current Password*",hintTxt: "Enter password",validator: Validation.isEmpty,).paddingOnly(bottom: 10.h),
+                   TextFieldWidget(controller: oldPass,labelTxt: "New Password*",hintTxt: "Enter New password ",validator: Validation.isEmpty,).paddingOnly(bottom: 10.h),
+                   TextFieldWidget(controller: newPass,labelTxt: "Confirm New Password*",hintTxt: "Enter New password ",validator:(p0) {
+                     if(p0!.isEmpty){
+                       return 'required field';
+                     }
+                     else if(p0!=oldPass.text){
+                       FunctionalWidget.showSnackBar(title: "Password does not match", success: false);
+                       return '';
+        
+                     }
+                     return null;
+                   } ,),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    spacing: 6.w,
+                    children: [
+                      // CustomButton(borderClr: AppColors.themeColor,color: AppColors.transparent,fontClr: AppColors.themeColor,text: "Discard", callback: () {
+                      //
+                      // },horiZontalPadding: 15,vertiCalPadding: 6,),
+                      CustomButton(text: "Save", callback: () {
+                        if(passwordKey.currentState!.validate()){
+        
+                        }
+                      },horiZontalPadding: 15,vertiCalPadding: 6,),
+        
+                    ],
+                  ).paddingOnly(top: 18.h),
+        
+                ],
+              )),
+            ),
+        
+        
+        
+                      ],
+                    ),
+          );
+        },),
+      ),
     );
   }
 

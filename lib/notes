@@ -1,0 +1,6 @@
+- jene observable banayu hase aj reflect thase
+- but observable banayu hase and widget ma pan use karyu hase and and a no context alag hase like listview builder ma context alag aave chhe
+to tya fari thi use karvu pdse obs
+/// registerSingleton: Registers a single instance of a class that is immediately available across the app.
+/// registerLazySingleton: Registers a single instance of a class that is created only when it's first accessed   .
+/// registerFactory: Registers a factory that provides a new instance every time it's requested.

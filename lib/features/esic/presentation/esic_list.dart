@@ -47,6 +47,7 @@ class _EsicListState extends State<EsicList> {
       body: Column(
         children: [
           AddNewButton(
+            value: 'Esic Policy',
             onPress: () {
               Get.toNamed(RoutesNames.esicView);
 

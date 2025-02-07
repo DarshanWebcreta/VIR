@@ -128,7 +128,7 @@ class _AddNewQuoteState extends State<AddNewQuote> {
           children: [
 
             FunctionalWidget.dropDownButton(
-              label: "Company name*",
+              label: "Company name",
               title:addQuoteStore.companyId==0||company.companyList.isEmpty?"Select any Compnay":company.companyList.firstWhere((element) => element.id==addQuoteStore.companyId,).companyName,
               displayAddBtn: true,
               addTap: () {
@@ -157,7 +157,7 @@ class _AddNewQuoteState extends State<AddNewQuote> {
             FunctionalWidget.dropDownButton(
               displayAddBtn: true,
 
-              label: "Subject*",
+              label: "Subject",
               title:addQuoteStore.subjectId==0||subject.subjectList.isEmpty?"Select any subject":subject.subjectList.firstWhere((element) => element.id==addQuoteStore.subjectId,).name,
               addTap: () {
 
@@ -186,18 +186,18 @@ class _AddNewQuoteState extends State<AddNewQuote> {
               },
             ).paddingSymmetric(vertical: spacePadding),
             TextFieldWidget(
-              labelTxt: "Name*",
+              labelTxt: "Name",
               hintTxt: "Name",
               filled: true,
               controller: addQuoteStore.name,
-              validator: Validation.email,
+             
             ),
             TextFieldWidget(
-              labelTxt: "Phone no*",
+              labelTxt: "Phone no",
               hintTxt: "Phone no",
               filled: true,
               controller: addQuoteStore.phone, // Updated controller for address
-              validator: Validation.email,
+             
               textinput: TextInputType.number,
               inputFormater: [
                 FilteringTextInputFormatter.digitsOnly,
@@ -205,39 +205,39 @@ class _AddNewQuoteState extends State<AddNewQuote> {
               ],
             ).paddingSymmetric(vertical: spacePadding),
             TextFieldWidget(
-              labelTxt: "Address*",
+              labelTxt: "Address",
               hintTxt: "Address",
               filled: true,
               controller: addQuoteStore.address, // Updated controller for address
-              validator: Validation.email,
+             
             ),
             TextFieldWidget(
-              labelTxt: "Address1*",
+              labelTxt: "Address1",
               hintTxt: "Address1",
               filled: true,
               controller: addQuoteStore.address1, // Updated controller for address
-              validator: Validation.email,
+             
             ).paddingSymmetric(vertical: spacePadding),
             TextFieldWidget(
-              labelTxt: "City*",
+              labelTxt: "City",
               hintTxt: "City",
               filled: true,
               controller: addQuoteStore.city,
-              validator: Validation.email,
+             
             ),
             TextFieldWidget(
-              labelTxt: "District*",
+              labelTxt: "District",
               hintTxt: "District",
               filled: true,
               controller: addQuoteStore.dictrict,
-              validator: Validation.email,
+             
             ).paddingSymmetric(vertical: spacePadding),
             TextFieldWidget(
-              labelTxt: "Pincode*",
+              labelTxt: "Pincode",
               hintTxt: "Pincode",
               filled: true,
               controller: addQuoteStore.pincode,
-              validator: Validation.email,
+             
               textinput: TextInputType.number,
               inputFormater: [
                 FilteringTextInputFormatter.allow(Validation.addDigitOnly),
@@ -245,18 +245,18 @@ class _AddNewQuoteState extends State<AddNewQuote> {
               ],
             ),
             TextFieldWidget(
-              labelTxt: "Gst no*",
+              labelTxt: "Gst no",
               hintTxt: "Gst no",
               filled: true,
               controller: addQuoteStore.gstNo,
-              validator: Validation.email,
+             
             ).paddingSymmetric(vertical: spacePadding),
             TextFieldWidget(
-              labelTxt: "Email*",
+              labelTxt: "Email",
               hintTxt: "Email",
               filled: true,
               controller: addQuoteStore.email,
-              validator: Validation.email,
+             
             ),
             FunctionalWidget.dropDownButton(
               label: "Status",
@@ -270,7 +270,7 @@ class _AddNewQuoteState extends State<AddNewQuote> {
                   final status =  AppStrings.status[index];
                   return Column(
                     children: [
-                      CustomButton(borderClr: AppColors.transparent,vertiCalPadding: 10.h,fontClr: AppColors.black,color: AppColors.transparent,text:status, callback: () {
+                      CustomButton(borderClr: AppColors.transparent,vertiCalPadding: 10.h,fontClr: AppColors.black,color: AppColors.transparent,text:status.capitalizeFirst!, callback: () {
                         addQuoteStore.status=status;
 
                         Get.back();
@@ -282,7 +282,7 @@ class _AddNewQuoteState extends State<AddNewQuote> {
               },
             ).paddingSymmetric(vertical: spacePadding),
             FunctionalWidget.dropDownButton(
-              label: "Rate hours*",
+              label: "Rate hours",
               title:addQuoteStore.rateHours.isEmpty?"Select any hours":"${addQuoteStore.rateHours} hrs",
               addTap: () {
 

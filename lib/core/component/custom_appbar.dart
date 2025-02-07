@@ -36,11 +36,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget{
         Get.back();
       },).paddingOnly(left: 8.w):null,
       backgroundColor: AppColors.themeColor,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.r)),
-      actions: [
-        //SvgWidget(width: 20, height: 18, path: ImageStrings.scanner).paddingOnly(right: 16.w),
-      // if(scanner)  CircleIconButton(svgPath:  ImageStrings.scanner,icon: Icons.document_scanner_outlined, onPressed:callback! ,size: 60,iconColor: AppColors.black,backgroundColor: AppColors.transparent,iconSize: 20,)
-      ],
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.only(bottomLeft: Radius.circular(12.r),bottomRight: Radius.circular(12.r))),
+
       title:  TextWidget(text:title ,fontWeight: FontWeights.large,fontSize: FontSizes.large,clr: AppColors.white,),
       automaticallyImplyLeading: false,);
   }

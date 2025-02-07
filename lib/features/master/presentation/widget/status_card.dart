@@ -36,15 +36,12 @@ final VoidCallback deletePress;
                     fontWeight: FontWeights.small,
                                    ),
                  ),
-               if(sort!=null) Expanded(
-                 child: TextWidget(
-                    text:"Sort . $sort" ,
-                    fontSize: FontSizes.mediuam,
-                    fontWeight: FontWeights.small,
-                  ),
-               ),
-                SizedBox(
-                    child: CustomCard(child:  TextWidget(text: status,).paddingSymmetric(vertical: 2.h,horizontal: 4.w)))
+               if(sort!=null) TextWidget(
+                  text:"Sort Order. $sort" ,
+                  fontSize: FontSizes.mediuam,
+                  fontWeight: FontWeights.small,
+                ),
+                Expanded(child: Align(alignment: Alignment.centerRight,child: CustomCard(child: TextWidget(text: status,).paddingSymmetric(vertical: 2.h,horizontal: 6.w),).paddingSymmetric(vertical: 2.h,horizontal: 4.w)))
               ],
             ),
              Row(

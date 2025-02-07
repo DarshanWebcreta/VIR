@@ -11,7 +11,7 @@ class AppStrings{
   static const int toasterTime = 3000;
   static const String loginSheetTitle = 'Login to Vir Security';
   static const String forgetPassword = 'Forget password?';
-  static const String loginSheetDesciption = 'Warehouse management dashboard';
+  static const String loginSheetDesciption = 'Security & Manpower Services.';
   static const String submit = "Submit";
   static const String assignPickList = "Assigned Pick List";
   static const String monthWiseQuote = "Month wise Qoute";
@@ -78,7 +78,7 @@ class AppStrings{
 
   static const List<String> rateHours = [
     "8",
-    "18",
+    "12",
   ];
   static const List<int> brandFilter = [
    0,1,2,3,4,5,6,7
@@ -90,25 +90,29 @@ class AppStrings{
   static const String providentFundListTitle = "Provident Fund List";
   static const String categoryListTitle = "Category List";
   static const String categoryViewTitle = "Category Value";
-  static const String categoryAddTitle = "Add Category Value";
+  static const String categoryAddTitle = "Add Category";
   static const String providentFundViewTitle = "Provident Fund Value";
   static const String stockHistoryPageTitle = "Stock History";
   static const String picklistTitle = "Pick List";
   static const String subjectListTitle = "Subject List";
-  static const String subjectViewTitle = "Subject Details";
+  static const String subjectViewTitle = "Subject Value";
   static const String orderListTitle = "Orders List";
+
   static const String companies = "Company List";
-  static const String companyDetails = "Company Details";
+  static const String companyDetails = "Company Value";
+
   static const String tcListTitle = "Terms & Conditions List";
-  static const String tcViewTitle = "Add Terms & Condition Value";
+  static const String tcViewTitle = "Add Terms & Condition";
+
   static const String tcViewUpdateTitle = "Update Terms & Condition Value";
   static const String esicList = "ESIC Policies";
+
   static const String gst = "Gst List";
   static const String gstView = "Gst Value";
-  static const String esicView = "ESIC policy";
 
+  static const String esicView = "ESIC Policy Value";
   static const String bonusList = "Bonus List";
-  static const String bonusView = "Add Bonus Value";
+  static const String bonusView = "Add Bonus";
 
   static const String leaveList = "Leave List";
   static const String leaveView = "Leave Value";

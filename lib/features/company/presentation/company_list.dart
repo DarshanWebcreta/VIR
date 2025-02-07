@@ -17,6 +17,7 @@ import 'package:vir/core/theme/app_colors.dart';
 import 'package:vir/core/utils/fix_sizes.dart';
 import 'package:vir/core/utils/font_size.dart';
 import 'package:vir/core/utils/font_weight.dart';
+import 'package:vir/core/utils/function_component.dart';
 import 'package:vir/features/company/presentation/store/company_store.dart';
 import 'package:vir/features/company/presentation/widget/title_with_value.dart';
 import 'package:vir/injection.dart';
@@ -48,6 +49,7 @@ class _CompanyListState extends State<CompanyList> {
       body: Column(
         children: [
           AddNewButton(
+            value: 'Company',
             onPress: () {
 
               Get.toNamed(RoutesNames.companyDetails,);
@@ -92,7 +94,12 @@ class _CompanyListState extends State<CompanyList> {
                                       IconWidget(
                                         icon: Icons.delete_outline,
                                         onPress: () {
-                                          companyList.deleteCompany(companyList.companyList[index].id);
+                                          FunctionalWidget.askUserDialog( cancel: () {
+                                            Get.back();
+                                          }, yes: () {
+                                            companyList.deleteCompany(companyList.companyList[index].id);
+
+                                          }, title: "Are you sure you want to delete company?", des: 'This action cannot be undone.');
                                         },
                                         size: 18,
                                         clr: AppColors.red,
@@ -102,12 +109,13 @@ class _CompanyListState extends State<CompanyList> {
                                   Row(
                                     children: [
                                       TitleWithValue(
-                                        title: "Reg",
+
+                                        title: "Reg.No",
                                         value: '${company.registrationNo} . ',
                                       ),
                                       TitleWithValue(
-                                        title: company.providentFundNo,
-                                        value: '999886',
+                                        title: "Pro.Fund",
+                                        value: company.providentFundNo,
                                       ),
                                     ],
                                   ),

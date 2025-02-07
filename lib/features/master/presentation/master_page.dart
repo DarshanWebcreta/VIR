@@ -10,6 +10,8 @@ import 'package:vir/core/routes/route_name.dart';
 import 'package:vir/core/theme/app_colors.dart';
 import 'package:vir/core/utils/font_size.dart';
 import 'package:vir/core/utils/font_weight.dart';
+import 'package:vir/features/main_screen/store/main_screen_store.dart';
+import 'package:vir/injection.dart';
 
 class MasterPage extends StatefulWidget {
   const MasterPage({super.key});
@@ -19,52 +21,62 @@ class MasterPage extends StatefulWidget {
 }
 
 class _MasterPageState extends State<MasterPage> {
+  final MainScreenTab mainScreenTab = getIt<MainScreenTab>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const CustomAppBar(title: "Masters"),
-      body: Column(
+      body: PopScope(
+        canPop: false,
+        onPopInvoked: (didPop) => mainScreenTab.changeTab(0),
 
-       spacing: 6.h,
-        children: [
-           const CustomSizeBox(height: 24, width: 0),
-           MasterCard(label: 'Company Details',onPress: () {
-             Get.toNamed(RoutesNames.companyList);
-           },),
-           MasterCard(label: 'Category',onPress: () {
-             Get.toNamed(RoutesNames.categoryList);
+        child: SingleChildScrollView(
+          child: Column(
 
-           },),
-           MasterCard(label: 'Subject',onPress: () {
-             Get.toNamed(RoutesNames.subjectList);
+           spacing: 6.h,
+            children: [
+               const CustomSizeBox(height: 24, width: 0),
+               MasterCard(label: 'Company Details',onPress: () {
+                 Get.toNamed(RoutesNames.companyList);
+               },),
+               MasterCard(label: 'Category',onPress: () {
+                 Get.toNamed(RoutesNames.categoryList);
 
-           },),
-           MasterCard(label: 'Terms & Conditions',onPress: () {
-             Get.toNamed(RoutesNames.tcList);
+               },),
+               MasterCard(label: 'Subject',onPress: () {
+                 Get.toNamed(RoutesNames.subjectList);
 
-           },),
-           MasterCard(label: 'Provident Fund',onPress: () {
-             Get.toNamed(RoutesNames.providentfundList);
+               },),
+               MasterCard(label: 'Terms & Conditions',onPress: () {
+                 Get.toNamed(RoutesNames.tcList);
 
-           },), MasterCard(label: 'Gst Tax',onPress: () {
-             Get.toNamed(RoutesNames.gstList);
+               },),
+               MasterCard(label: 'Provident Fund',onPress: () {
+                 Get.toNamed(RoutesNames.providentfundList);
 
-           },),
-           MasterCard(label: 'ESIC Policy',onPress: () {
-             Get.toNamed(RoutesNames.esicList);
+               },), MasterCard(label: 'Gst Tax',onPress: () {
+                 Get.toNamed(RoutesNames.gstList);
 
-           },),
-           MasterCard(label: 'Bonus',onPress: () {
-             Get.toNamed(RoutesNames.bonusList);
+               },),
+               MasterCard(label: 'ESIC Policy',onPress: () {
+                 Get.toNamed(RoutesNames.esicList);
 
-           },),
-           MasterCard(label: 'Leave',onPress: () {
-             Get.toNamed(RoutesNames.leaveList);
+               },),
+               MasterCard(label: 'Bonus',onPress: () {
+                 Get.toNamed(RoutesNames.bonusList);
 
-           },),
+               },),
+               MasterCard(label: 'Leave',onPress: () {
+                 Get.toNamed(RoutesNames.leaveList);
 
-        ],
-      ).paddingSymmetric(horizontal: 16.w)
+               },).paddingOnly(bottom: 60.h),
+
+
+            ],
+          ).paddingSymmetric(horizontal: 16.w),
+        ),
+      )
       ,
     );
   }

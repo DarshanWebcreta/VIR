@@ -72,9 +72,8 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                   child: TextWidget(text: AppStrings.registerEmailAddress,
                     textAlign: TextAlign.center,maxLine: 5,fontWeight:FontWeights.medium,clr: AppColors.grey,),
                 ),
-                TextFieldWidget(controller: email,hintTxt: "xyz@gmail.com",filled: true,
+                TextFieldWidget(controller: email,hintTxt: "xyz@gmail.com",
                   validator: Validation.email,
-                  errorDisplay: true,
                 ).paddingOnly(top: 12.h,bottom: 50.h),
                 CustomSizeBox(height: FixSizes.buttonHeight, width: 146, child:  CustomButton(text:AppStrings.submit, callback: () {
                   if(key.currentState!.validate()){

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -26,6 +28,7 @@ import 'package:vir/features/company/presentation/store/company_store.dart';
 import 'package:vir/features/dashboard/presentation/store/dashboard_store.dart';
 
 import 'package:vir/features/dashboard/presentation/widget/month_wise_quote.dart';
+import 'package:vir/features/main_screen/store/main_screen_store.dart';
 import 'package:vir/features/subject/presentation/store/subject_store.dart';
 import 'package:vir/features/t&c/presentation/store/terms_store.dart';
 import 'package:vir/injection.dart';
@@ -39,6 +42,7 @@ class DashboardScreen extends StatefulWidget {
 
 class _DashboardScreenState extends State<DashboardScreen> {
   final dashBoardStore = getIt<DashboardStore>();
+  final  mainScreenTab = getIt<MainScreenTab>();
 
   final companyList = getIt<CompanyStore>();
 
@@ -57,55 +61,76 @@ class _DashboardScreenState extends State<DashboardScreen> {
     return Scaffold(
       appBar: AppBar(actions: [
         IconButton(onPressed: () {
-          FunctionalWidget.logout();
+          FunctionalWidget.askUserDialog( cancel:
+              () {
+            Get.back();
+          }, yes: () {
+            FunctionalWidget.logout();
+            exit(0);
+          }, title: "Do you really want to logout?", des: 'Any unsaved changes may be lost.');
+
         }, icon: const IconWidget(icon: Icons.logout,clr: AppColors.red,size: 24,))
       ],backgroundColor: AppColors.white,leading: const AppLogo().paddingAll(10.w),leadingWidth: 100,shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.r)),),
-      body: Observer(builder: (context) {
-        if(!dashBoardStore.isLoading){
-          return RefreshIndicator(
-            onRefresh: () => dashBoardStore.callApi(),
-            child: ListView(
+      body: PopScope(
+        canPop: false,
+        onPopInvoked: (didPop) => FunctionalWidget.askUserDialog( cancel:
+            () {
+              Get.back();
+            }, yes: () {
+              exit(0);
+            }, title: " Do you really want to exit?", des: 'Any unsaved changes may be lost.'),
+        child: Observer(builder: (context) {
+          if(!dashBoardStore.isLoading){
+            return RefreshIndicator(
+              onRefresh: () => dashBoardStore.callApi(),
+              child: ListView(
+                children: [
+                   GestureDetector(
+                     onTap: () {
+                       mainScreenTab.changeTab(1);
+                     },
+                     child: HomeCardWidget(
+                      svgIcon: ImageStrings.quote,
+                      value:dashBoardStore.dashboardModel?.data.quoteCount ,
+                      title: "Quotation",
+                                       ),
+                   ),
+                  // const HomeCardWidget(
+                  //   svgIcon: ImageStrings.company,
+                  //   value: 78,
+                  //   title: "Total Companies",
+                  // ).paddingSymmetric(vertical: 8.h),
+                  GestureDetector(
+                    onTap: () {
+                      FunctionalWidget.bottomSheet(height: 500, child:  MonthWiseQuote(), title: AppStrings.monthWiseQuote);
+                    },
+                    child: const HomeCardWidget(
+                      svgIcon: ImageStrings.reports,
+
+                      title: "Month Wise Quote PDF",
+                    ),
+                  ).paddingOnly(bottom:10.h ,top: 8.h),
+                  AddNewButton(value: "Quote",onPress: () {
+                    Get.toNamed(RoutesNames.addNewQuote);
+                  },).paddingOnly(top: 10.h)
+                ],
+              ).paddingAll(FixSizes.paddingAllAndHorizontol),
+            );
+
+          }
+          else{
+            return  Column(
               children: [
-                 HomeCardWidget(
-                  svgIcon: ImageStrings.quote,
-                  value:dashBoardStore.dashboardModel?.data.quoteCount ,
-                  title: "Quotation",
-                ),
-                // const HomeCardWidget(
-                //   svgIcon: ImageStrings.company,
-                //   value: 78,
-                //   title: "Total Companies",
-                // ).paddingSymmetric(vertical: 8.h),
-                GestureDetector(
-                  onTap: () {
-                    FunctionalWidget.bottomSheet(height: 500, child:  MonthWiseQuote(), title: AppStrings.monthWiseQuote);
-                  },
-                  child: const HomeCardWidget(
-                    svgIcon: ImageStrings.reports,
+                const CustomSizeBox(height: 67, width:0,child: ShimmerCard(radius: 8,),),
+                const CustomSizeBox(height: 67, width:0,child: ShimmerCard(radius: 8,),).paddingOnly(top: 8.h,bottom: 10.h),
+                const CustomSizeBox(height: 67, width:0,child: ShimmerCard(radius: 8,),),
 
-                    title: "Month Wise Quote PDF",
-                  ),
-                ).paddingOnly(bottom:10.h ,top: 8.h),
-                AddNewButton(value: "Quote",onPress: () {
-                  Get.toNamed(RoutesNames.addNewQuote);
-                },).paddingOnly(top: 10.h)
+
               ],
-            ).paddingAll(FixSizes.paddingAllAndHorizontol),
-          );
-
-        }
-        else{
-          return  Column(
-            children: [
-              const CustomSizeBox(height: 67, width:0,child: ShimmerCard(radius: 8,),),
-              const CustomSizeBox(height: 67, width:0,child: ShimmerCard(radius: 8,),).paddingOnly(top: 8.h,bottom: 10.h),
-              const CustomSizeBox(height: 67, width:0,child: ShimmerCard(radius: 8,),),
-
-
-            ],
-          );
-        }
-      },),
+            );
+          }
+        },),
+      ),
     );
   }
 }

@@ -129,8 +129,8 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                 ),
                 TextFieldWidget(
                     controller: pfController,
-                    labelTxt: 'Provident Fund*',
-                    hintTxt: "Enter provident fund",
+                    labelTxt: 'Provident Fund No*',
+                    hintTxt: "Enter provident fund no",
                     validator: Validation.isEmpty),
                 TextFieldWidget(
                     controller: stController,

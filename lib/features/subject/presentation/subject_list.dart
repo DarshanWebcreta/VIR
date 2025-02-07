@@ -11,6 +11,7 @@ import 'package:vir/core/component/list_shimmer_effect.dart';
 import 'package:vir/core/constant/app_strings.dart';
 import 'package:vir/core/routes/route_name.dart';
 import 'package:vir/core/utils/fix_sizes.dart';
+import 'package:vir/core/utils/function_component.dart';
 import 'package:vir/features/category/presentation/store/category_store.dart';
 import 'package:vir/features/master/presentation/widget/status_card.dart';
 import 'package:vir/features/subject/presentation/store/subject_store.dart';
@@ -43,6 +44,7 @@ class _SubjectListState extends State<SubjectList> {
       body: Column(
         children: [
           AddNewButton(
+            value: "Subject",
             onPress: () {
               Get.toNamed(RoutesNames.subjectView);
 
@@ -69,7 +71,13 @@ class _SubjectListState extends State<SubjectList> {
                           Get.toNamed(RoutesNames.subjectView,arguments: subjectData);
                         },
                         child:    StatusCard(id: subjectData.id.toString(),title:  subjectData.name,status:subjectData.status,deletePress: () {
-                          subject.deleteSubject(subjectData.id);
+                          FunctionalWidget.askUserDialog( cancel: () {
+                            Get.back();
+                          }, yes: () {
+                            subject.deleteSubject(subjectData.id);
+
+                          }, title: "Are you sure you want to delete subject?", des: 'This action cannot be undone.');
+
                         }, ).paddingOnly(bottom: 6.h)
                         ,
                       );

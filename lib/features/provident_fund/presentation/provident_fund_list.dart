@@ -44,6 +44,7 @@ class _ProvidentFundListState extends State<ProvidentFundList> {
         child: Column(
           children: [
             AddNewButton(
+              value: 'Provident Fund',
               onPress: () {
                 Get.toNamed(RoutesNames.providentFundView);
 
