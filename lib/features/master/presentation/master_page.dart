@@ -31,49 +31,51 @@ class _MasterPageState extends State<MasterPage> {
         canPop: false,
         onPopInvoked: (didPop) => mainScreenTab.changeTab(0),
 
-        child: Column(
+        child: SingleChildScrollView(
+          child: Column(
 
-         spacing: 6.h,
-          children: [
-             const CustomSizeBox(height: 24, width: 0),
-             MasterCard(label: 'Company Details',onPress: () {
-               Get.toNamed(RoutesNames.companyList);
-             },),
-             MasterCard(label: 'Category',onPress: () {
-               Get.toNamed(RoutesNames.categoryList);
+           spacing: 6.h,
+            children: [
+               const CustomSizeBox(height: 24, width: 0),
+               MasterCard(label: 'Company Details',onPress: () {
+                 Get.toNamed(RoutesNames.companyList);
+               },),
+               MasterCard(label: 'Category',onPress: () {
+                 Get.toNamed(RoutesNames.categoryList);
 
-             },),
-             MasterCard(label: 'Subject',onPress: () {
-               Get.toNamed(RoutesNames.subjectList);
+               },),
+               MasterCard(label: 'Subject',onPress: () {
+                 Get.toNamed(RoutesNames.subjectList);
 
-             },),
-             MasterCard(label: 'Terms & Conditions',onPress: () {
-               Get.toNamed(RoutesNames.tcList);
+               },),
+               MasterCard(label: 'Terms & Conditions',onPress: () {
+                 Get.toNamed(RoutesNames.tcList);
 
-             },),
-             MasterCard(label: 'Provident Fund',onPress: () {
-               Get.toNamed(RoutesNames.providentfundList);
+               },),
+               MasterCard(label: 'Provident Fund',onPress: () {
+                 Get.toNamed(RoutesNames.providentfundList);
 
-             },), MasterCard(label: 'Gst Tax',onPress: () {
-               Get.toNamed(RoutesNames.gstList);
+               },), MasterCard(label: 'Gst Tax',onPress: () {
+                 Get.toNamed(RoutesNames.gstList);
 
-             },),
-             MasterCard(label: 'ESIC Policy',onPress: () {
-               Get.toNamed(RoutesNames.esicList);
+               },),
+               MasterCard(label: 'ESIC Policy',onPress: () {
+                 Get.toNamed(RoutesNames.esicList);
 
-             },),
-             MasterCard(label: 'Bonus',onPress: () {
-               Get.toNamed(RoutesNames.bonusList);
+               },),
+               MasterCard(label: 'Bonus',onPress: () {
+                 Get.toNamed(RoutesNames.bonusList);
 
-             },),
-             MasterCard(label: 'Leave',onPress: () {
-               Get.toNamed(RoutesNames.leaveList);
+               },),
+               MasterCard(label: 'Leave',onPress: () {
+                 Get.toNamed(RoutesNames.leaveList);
 
-             },).paddingOnly(bottom: 60.h),
+               },).paddingOnly(bottom: 60.h),
 
 
-          ],
-        ).paddingSymmetric(horizontal: 16.w),
+            ],
+          ).paddingSymmetric(horizontal: 16.w),
+        ),
       )
       ,
     );

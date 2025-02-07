@@ -16,17 +16,18 @@ class CustomCard extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return Container(
-      child: child,decoration: BoxDecoration(
+      decoration: BoxDecoration(
       borderRadius: BorderRadius.circular(radius.r),
       color: color,
       boxShadow:  [
         BoxShadow(color: AppColors.grey.withValues(alpha: 0.1),blurRadius: blurRadius,spreadRadius:spreadRadius,)
       ]
     ),
+      child: child,
     );
         //Card(elevation :4,shadowColor: AppColors.grey,shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(radius.r)),
     //       color:color,margin: EdgeInsets.zero,child: child,);
   }
 
-  const CustomCard({this.spreadRadius= 2,this.blurRadius = 2,this.radius = 12, required this.child, this.color= AppColors.white });
+  const CustomCard({super.key, this.spreadRadius= 2,this.blurRadius = 2,this.radius = 12, required this.child, this.color= AppColors.white });
 }

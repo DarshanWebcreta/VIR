@@ -28,6 +28,7 @@ import 'package:vir/features/company/presentation/store/company_store.dart';
 import 'package:vir/features/dashboard/presentation/store/dashboard_store.dart';
 
 import 'package:vir/features/dashboard/presentation/widget/month_wise_quote.dart';
+import 'package:vir/features/main_screen/store/main_screen_store.dart';
 import 'package:vir/features/subject/presentation/store/subject_store.dart';
 import 'package:vir/features/t&c/presentation/store/terms_store.dart';
 import 'package:vir/injection.dart';
@@ -41,6 +42,7 @@ class DashboardScreen extends StatefulWidget {
 
 class _DashboardScreenState extends State<DashboardScreen> {
   final dashBoardStore = getIt<DashboardStore>();
+  final  mainScreenTab = getIt<MainScreenTab>();
 
   final companyList = getIt<CompanyStore>();
 
@@ -59,7 +61,14 @@ class _DashboardScreenState extends State<DashboardScreen> {
     return Scaffold(
       appBar: AppBar(actions: [
         IconButton(onPressed: () {
-          FunctionalWidget.logout();
+          FunctionalWidget.askUserDialog( cancel:
+              () {
+            Get.back();
+          }, yes: () {
+            FunctionalWidget.logout();
+            exit(0);
+          }, title: "Do you really want to logout?", des: 'Any unsaved changes may be lost.');
+
         }, icon: const IconWidget(icon: Icons.logout,clr: AppColors.red,size: 24,))
       ],backgroundColor: AppColors.white,leading: const AppLogo().paddingAll(10.w),leadingWidth: 100,shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.r)),),
       body: PopScope(
@@ -76,11 +85,16 @@ class _DashboardScreenState extends State<DashboardScreen> {
               onRefresh: () => dashBoardStore.callApi(),
               child: ListView(
                 children: [
-                   HomeCardWidget(
-                    svgIcon: ImageStrings.quote,
-                    value:dashBoardStore.dashboardModel?.data.quoteCount ,
-                    title: "Quotation",
-                  ),
+                   GestureDetector(
+                     onTap: () {
+                       mainScreenTab.changeTab(1);
+                     },
+                     child: HomeCardWidget(
+                      svgIcon: ImageStrings.quote,
+                      value:dashBoardStore.dashboardModel?.data.quoteCount ,
+                      title: "Quotation",
+                                       ),
+                   ),
                   // const HomeCardWidget(
                   //   svgIcon: ImageStrings.company,
                   //   value: 78,

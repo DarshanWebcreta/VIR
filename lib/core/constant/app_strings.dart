@@ -11,7 +11,7 @@ class AppStrings{
   static const int toasterTime = 3000;
   static const String loginSheetTitle = 'Login to Vir Security';
   static const String forgetPassword = 'Forget password?';
-  static const String loginSheetDesciption = 'Warehouse management dashboard';
+  static const String loginSheetDesciption = 'Security & Manpower Services.';
   static const String submit = "Submit";
   static const String assignPickList = "Assigned Pick List";
   static const String monthWiseQuote = "Month wise Qoute";

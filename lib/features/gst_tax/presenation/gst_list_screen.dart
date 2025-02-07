@@ -9,6 +9,7 @@ import 'package:vir/core/component/custom_appbar.dart';
 import 'package:vir/core/component/custom_card.dart';
 import 'package:vir/core/component/list_shimmer_effect.dart';
 import 'package:vir/core/component/sizebox_widget.dart';
+import 'package:vir/core/component/text_widget.dart';
 import 'package:vir/core/constant/app_strings.dart';
 import 'package:vir/core/routes/route_name.dart';
 import 'package:vir/core/utils/fix_sizes.dart';
@@ -73,32 +74,22 @@ class _GstListState extends State<GstList> {
                               child: Column(
                                 spacing: 4.h,
                                 children: [
-                                  Row(
-                                    mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      TitleWithValue(
-                                        title: "Id",
-                                        value: '${gst.id}',
-                                      ),
-
-                                      TitleWithValue(
-                                        title: "Effective date",
-                                        value: Operation.dateFormateForUi(gst.effectiveDate),
-                                      ),
-                                    ],
+                                  TitleWithValue(
+                                    title: "Id",
+                                    value: '${gst.id}',
                                   ),
                                   Row(
                                     children: [
                                       TitleWithValue(
-                                        title: "Cgst",
+                                        title: "CGST",
                                         value: '${gst.cGstValue} . ',
                                       ),
 
                                       TitleWithValue(
-                                        title: "Sgst",
+                                        title: "SGST",
                                         value: gst.sGstValue,
                                       ),
+                                      Expanded(child: TextWidget(textAlign: TextAlign.right,text: Operation.dateFormateForUi(gst.effectiveDate),))
                                     ],
                                   ),
 

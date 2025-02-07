@@ -75,9 +75,6 @@ class _TcListState extends State<TcList> {
                             Get.back();
                           }, yes: () {
                             termsStore.deleteTerm(termData.id);
-
-
-
                           }, title: "Are you sure you want to delete this?", des: 'This action cannot be undone.');
                         },status: termData.status,title:termData.title,sort: termData.sortOrder.toString(),).paddingOnly(bottom: 6.h)
                         ,
