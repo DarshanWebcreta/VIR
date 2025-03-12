@@ -37,6 +37,9 @@ abstract class _AddNewQuoteStore with Store {
   bool sGst = false;
 
   @observable
+  TextEditingController reliver = TextEditingController(text: '');
+
+  @observable
   bool iGst = false;
 
   @observable
@@ -88,6 +91,7 @@ abstract class _AddNewQuoteStore with Store {
 
           wages: TextEditingController(text: ''),
           allowance: TextEditingController(text: ''),
+          reliverCharge: TextEditingController(text: ''),
           applyPercentageForHra: 0,
           applyPercentageForAgency: 0,
           hraCharge: TextEditingController(text: ''),
@@ -210,7 +214,7 @@ abstract class _AddNewQuoteStore with Store {
         pivot: CategoryPivot(
             quoteId: 0,
             categoryId: 0,
-
+            reliverCharge: TextEditingController(text: ''),
             wages: TextEditingController(text: ''),
             allowance: TextEditingController(text: ''),
             applyPercentageForHra: 0,

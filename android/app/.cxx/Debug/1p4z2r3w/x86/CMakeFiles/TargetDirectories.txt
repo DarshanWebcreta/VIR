@@ -1,0 +1,2 @@
+/Users/apple/StudioProjects/VIR/android/app/.cxx/Debug/1p4z2r3w/x86/CMakeFiles/edit_cache.dir
+/Users/apple/StudioProjects/VIR/android/app/.cxx/Debug/1p4z2r3w/x86/CMakeFiles/rebuild_cache.dir

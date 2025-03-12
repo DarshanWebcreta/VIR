@@ -10,6 +10,7 @@ class CategoryPivot {
    int applyPercentageForHra;
    int applyPercentageForAgency;
    TextEditingController hraCharge;
+   TextEditingController reliverCharge;
    TextEditingController agencyCharge;
    int hra;
    int proFund;
@@ -22,6 +23,7 @@ class CategoryPivot {
   CategoryPivot({
     required this.quoteId,
     required this.categoryId,
+    required this.reliverCharge,
     required this.wages,
     required this.allowance,
     required this.applyPercentageForHra,
@@ -40,6 +42,7 @@ class CategoryPivot {
   factory CategoryPivot.fromJson(Map<String, dynamic> json) {
     return CategoryPivot(
       quoteId: json['quote_id'] ,
+      reliverCharge: TextEditingController(text: json['reliver_charges']??'') ,
       categoryId: json['category_id']??0 ,
       wages: TextEditingController(text: json['wages'] ?? '0.00'), // Default value if null
       allowance: TextEditingController(text: json['allowance'] ?? '0.00'), // Default value if null
