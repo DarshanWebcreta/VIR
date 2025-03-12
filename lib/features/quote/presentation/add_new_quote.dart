@@ -107,6 +107,7 @@ class _AddNewQuoteState extends State<AddNewQuote> {
           "district": addQuoteStore.dictrict.text,
           "pincode": addQuoteStore.pincode.text,
           "gst_no": addQuoteStore.gstNo.text,
+          "reliver_charges": addQuoteStore.reliver.text,
           "email": addQuoteStore.email.text,
           "rate_hours": int.parse(addQuoteStore.rateHours.isEmpty?'0':addQuoteStore.rateHours),
           "status": addQuoteStore.status,
@@ -345,14 +346,21 @@ class _AddNewQuoteState extends State<AddNewQuote> {
                       ],textinput: TextInputType.number,controller:pivot.allowance,validator: Validation.isEmpty).paddingOnly(left: 6.w)),
                     ],
                   ),
-                  TextFieldWidget(controller:pivot.hraCharge ,hintTxt: "Enter HRA Charge here",inputFormater: [
+                  TextFieldWidget(controller:pivot.reliverCharge ,hintTxt: "Enter Reliver Charges here",inputFormater: [
+                    FilteringTextInputFormatter.allow(Validation.addDigitOnly),
+
+                  ],textinput: TextInputType.number,validator:Validation.isEmpty,suffix: null,
+                  ),
+                  TextFieldWidget(controller:pivot.hraCharge ,hintTxt: "Enter HRA Charges here",inputFormater: [
                     FilteringTextInputFormatter.allow(Validation.addDigitOnly),
 
                   ],textinput: TextInputType.number,validator:Validation.isEmpty,suffix: CheckBoxWidget(value: pivot.applyPercentageForHra==1?true:false,  callback: () {
                     addQuoteStore.applyHRA(index: index);
 
                   },),),
-                  TextFieldWidget(controller:pivot.agencyCharge,hintTxt: "Enter agency service charge here",inputFormater: [
+
+
+                  TextFieldWidget(controller:pivot.agencyCharge,hintTxt: "Enter agency service charges here",inputFormater: [
                     FilteringTextInputFormatter.allow(Validation.addDigitOnly),
                   ],textinput: TextInputType.number,validator:Validation.isEmpty,suffix: CheckBoxWidget(value:  pivot.applyPercentageForAgency==1?true:false,  callback: () {
                     addQuoteStore.applyAgency(index: index);

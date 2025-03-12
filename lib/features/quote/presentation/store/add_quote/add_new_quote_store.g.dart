@@ -105,6 +105,22 @@ mixin _$AddNewQuoteStore on _AddNewQuoteStore, Store {
     });
   }
 
+  late final _$reliverAtom =
+      Atom(name: '_AddNewQuoteStore.reliver', context: context);
+
+  @override
+  TextEditingController get reliver {
+    _$reliverAtom.reportRead();
+    return super.reliver;
+  }
+
+  @override
+  set reliver(TextEditingController value) {
+    _$reliverAtom.reportWrite(value, super.reliver, () {
+      super.reliver = value;
+    });
+  }
+
   late final _$iGstAtom =
       Atom(name: '_AddNewQuoteStore.iGst', context: context);
 
@@ -481,6 +497,7 @@ subjectId: ${subjectId},
 sendEmail: ${sendEmail},
 cGst: ${cGst},
 sGst: ${sGst},
+reliver: ${reliver},
 iGst: ${iGst},
 name: ${name},
 phone: ${phone},

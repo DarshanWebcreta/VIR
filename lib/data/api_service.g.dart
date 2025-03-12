@@ -11,7 +11,6 @@ part of 'api_service.dart';
 class _ApiService implements ApiService {
   _ApiService(
     this._dio, {
-    this.baseUrl,
     this.errorLogger,
   }) {
     baseUrl ??= 'https://virquote.virsecurity.in/public/api/';
@@ -579,15 +578,13 @@ class _ApiService implements ApiService {
       'rajasthan_police_no',
       rajasthanPoliceNo,
     ));
-    if(file!=null){
-      _data.files.add(MapEntry(
-        'company_logo',
-        MultipartFile.fromFileSync(
-          file.path,
-          filename: file.path.split(Platform.pathSeparator).last,
-        ),
-      ));
-    }
+    _data.files.add(MapEntry(
+      'company_logo',
+      MultipartFile.fromFileSync(
+        file!.path,
+        filename: file.path.split(Platform.pathSeparator).last,
+      ),
+    ));
     final _options = _setStreamType<CommonModel>(Options(
       method: 'POST',
       headers: _headers,
@@ -670,15 +667,13 @@ class _ApiService implements ApiService {
       'rajasthan_police_no',
       rjPoliceNo,
     ));
-    if(file!=null){
-      _data.files.add(MapEntry(
-        'company_logo',
-        MultipartFile.fromFileSync(
-          file.path,
-          filename: file.path.split(Platform.pathSeparator).last,
-        ),
-      ));
-    }
+    _data.files.add(MapEntry(
+      'company_logo',
+      MultipartFile.fromFileSync(
+        file!.path,
+        filename: file.path.split(Platform.pathSeparator).last,
+      ),
+    ));
     final _options = _setStreamType<CommonModel>(Options(
       method: 'POST',
       headers: _headers,
