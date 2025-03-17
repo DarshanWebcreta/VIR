@@ -1,4 +1,3 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 import 'package:vir/core/constant/app_strings.dart';
@@ -8,7 +7,6 @@ import 'package:vir/features/quote/domain/entities/pivot.dart';
 import 'package:vir/features/quote/domain/entities/quote_category.dart';
 import 'package:vir/features/quote/domain/usecase/quote_usecase.dart';
 import 'package:vir/features/t&c/presentation/store/terms_store.dart';
-
 
 import 'package:vir/injection.dart';
 
@@ -79,30 +77,31 @@ abstract class _AddNewQuoteStore with Store {
   ObservableList<String> selectedTerms = ObservableList<String>();
 
   @observable
-  List<QuoteViewCategory> categories = [QuoteViewCategory(
-      id: 0,
-      name: '',
-      status: '',
-      createdAt: '',
-      updatedAt: '',
-      pivot: CategoryPivot(
-          quoteId: 0,
-          categoryId: 0,
-
-          wages: TextEditingController(text: ''),
-          allowance: TextEditingController(text: ''),
-          reliverCharge: TextEditingController(text: ''),
-          applyPercentageForHra: 0,
-          applyPercentageForAgency: 0,
-          hraCharge: TextEditingController(text: ''),
-          agencyCharge: TextEditingController(text: ''),
-          hra: 0,
-          proFund: 0,
-          esic: 0,
-          bonus: 0,
-          leave: 0,
-          createdAt: '',
-          updatedAt: ''))];
+  List<QuoteViewCategory> categories = [
+    QuoteViewCategory(
+        id: 0,
+        name: '',
+        status: '',
+        createdAt: '',
+        updatedAt: '',
+        pivot: CategoryPivot(
+            quoteId: 0,
+            categoryId: 0,
+            wages: TextEditingController(text: ''),
+            allowance: TextEditingController(text: ''),
+            reliverCharge: TextEditingController(text: ''),
+            applyPercentageForHra: 0,
+            applyPercentageForAgency: 0,
+            hraCharge: TextEditingController(text: ''),
+            agencyCharge: TextEditingController(text: ''),
+            hra: 0,
+            proFund: 0,
+            esic: 0,
+            bonus: 0,
+            leave: 0,
+            createdAt: '',
+            updatedAt: ''))
+  ];
 
   @action
   Future<void> fetchQuote({required int id}) async {
@@ -127,10 +126,10 @@ abstract class _AddNewQuoteStore with Store {
         gstNo.text = result.data.gstNo ?? '';
         rateHours = result.data.rateHours;
         status = result.data.status;
-        categories = result.data.categories;
-        cGst = result.data.applyCgst==0?false:true;
-        sGst = result.data.applySgst==0?false:true;
-        iGst = result.data.applyIgst==0?false:true;
+        categories = result.data.categories.isEmpty?categories:result.data.categories;
+        cGst = result.data.applyCgst == 0 ? false : true;
+        sGst = result.data.applySgst == 0 ? false : true;
+        iGst = result.data.applyIgst == 0 ? false : true;
         selectedTerms = ObservableList.of(result.data.terms);
       } else {
         FunctionalWidget.showSnackBar(title: result.message, success: false);
@@ -148,10 +147,9 @@ abstract class _AddNewQuoteStore with Store {
 
   @action
   selectAllTerms() {
-    if(selectedTerms.length ==tc.termsList.length ){
+    if (selectedTerms.length == tc.termsList.length) {
       selectedTerms.clear();
-    }
-    else {
+    } else {
       selectedTerms =
           ObservableList.of(tc.termsList.map((e) => e.id.toString()).toList());
     }
@@ -160,21 +158,23 @@ abstract class _AddNewQuoteStore with Store {
   @action
   setSendEmail() {
     sendEmail = !sendEmail;
-
   }
 
   @action
   setCgst() {
     cGst = !cGst;
   }
+
   @action
   setSgst() {
     sGst = !sGst;
   }
+
   @action
   setIgst() {
     iGst = !iGst;
   }
+
   @action
   applyAgency({
     required int index,
@@ -189,23 +189,19 @@ abstract class _AddNewQuoteStore with Store {
   selectTerms({
     required String id,
   }) {
-    if(selectedTerms.contains(id)){
+    if (selectedTerms.contains(id)) {
       selectedTerms.remove(id);
-    }
-    else{
+    } else {
       selectedTerms.add(id);
     }
 
     selectedTerms = ObservableList.of(selectedTerms);
-
   }
 
   @action
-  addCategory(
-      ) {
+  addCategory() {
     // If you replace the entire list (less optimal):
-    categories.add(
-        QuoteViewCategory(
+    categories.add(QuoteViewCategory(
         id: 0,
         name: '',
         status: '',
@@ -229,7 +225,6 @@ abstract class _AddNewQuoteStore with Store {
             createdAt: '',
             updatedAt: '')));
     categories = [...categories];
-
   }
 
   @action
@@ -240,7 +235,7 @@ abstract class _AddNewQuoteStore with Store {
     // If you replace the entire list (less optimal):
     categories = [...categories];
   }
-  
+
   @action
   applyHRA({
     required int index,
