@@ -62,7 +62,8 @@ class CategoryPivot {
    Map<String, dynamic> toJson() {
      return {
 
-       "category_id": categoryId,
+       "category_id": categoryId==0?'':categoryId,
+       "reliver_charges":reliverCharge.text,
        "wages": wages.text, // Extract text from controller
        "allowance": allowance.text, // Extract text from controller
        "apply_percentage_for_hra": applyPercentageForHra,

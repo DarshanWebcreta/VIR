@@ -78,7 +78,7 @@ class QuoteDetails {
       userId: json['user_id'] ,
 
       companyId: json['company_id'] ,
-      subjectId: json['subject_id'] ,
+      subjectId: json['subject_id']??0 ,
       name:json['name'] ??'',
       phoneNo: json['phone_no'] ??'' ,
       address: json['address']??'',

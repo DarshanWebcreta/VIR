@@ -79,7 +79,7 @@ class _AddNewQuoteState extends State<AddNewQuote> {
     },);
 
     if(widget.quoteId!=null) {
-
+      print('867867');
       addQuoteStore.fetchQuote(id: widget.quoteId!);
     }
     // TODO: implement initState
@@ -107,7 +107,7 @@ class _AddNewQuoteState extends State<AddNewQuote> {
           "district": addQuoteStore.dictrict.text,
           "pincode": addQuoteStore.pincode.text,
           "gst_no": addQuoteStore.gstNo.text,
-          "reliver_charges": addQuoteStore.reliver.text,
+          // "reliver_charges": addQuoteStore.reliver.text,
           "email": addQuoteStore.email.text,
           "rate_hours": int.parse(addQuoteStore.rateHours.isEmpty?'0':addQuoteStore.rateHours),
           "status": addQuoteStore.status,
@@ -159,7 +159,7 @@ class _AddNewQuoteState extends State<AddNewQuote> {
               displayAddBtn: true,
 
               label: "Subject",
-              title:addQuoteStore.subjectId==0||subject.subjectList.isEmpty?"Select any subject":subject.subjectList.firstWhere((element) => element.id==addQuoteStore.subjectId,).name,
+              title:addQuoteStore.subjectId==0||subject.subjectList.isEmpty?"Select any subject":(subject.subjectList.firstWhere((element) => element.id==addQuoteStore.subjectId,).name)??"Select any subject",
               addTap: () {
 
                 Get.toNamed(RoutesNames.subjectView);
